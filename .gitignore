@@ -1,0 +1,23 @@
+# Node.js
+node_modules/
+build/
+*.log
+
+# 환경 설정 파일
+.env
+
+# Python
+__pycache__/
+*.py[cod]
+*.sqlite3
+
+# 가상 환경
+venv/
+.venv/
+
+### Svelte ###
+# gitignore template for the SvelteKit, frontend web component framework
+# website: https://kit.svelte.dev/
+
+.svelte-kit/
+package
