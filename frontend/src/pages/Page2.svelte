@@ -33,7 +33,7 @@
                 // 업로드된 이미지 미리보기
                 const reader = new FileReader();
                 reader.onload = (e) => {
-                    uploadedImage = e.target.result;
+                    uploadedImage = e.target?.result as string;
                 };
                 reader.readAsDataURL(file);
 
@@ -57,7 +57,7 @@
                 const result = await response.blob();
                 resultImage = URL.createObjectURL(result);
                 progressMessage = '변환 완료!';
-            } catch (error) {
+            } catch (error: any) {
                 console.error('Error:', error);
                 progressMessage = '오류가 발생했습니다: ' + error.message;
             } finally {
@@ -446,10 +446,6 @@
 
     .result-area img {
         transition: opacity 0.3s ease;
-    }
-
-    .result-area.processing img {
-        opacity: 0.5;
     }
 
     .arrow {
