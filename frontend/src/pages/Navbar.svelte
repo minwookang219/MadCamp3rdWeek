@@ -27,19 +27,23 @@
       top: 0;
       left: 0;
       width: 100%;
-      height: 50px;
-      background-color: white;
+      height: 70px;
+      background-color: #333;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
       z-index: 1000;
     }
   
-    a {
-      color: white; /* 링크 색상 예시 */
+    nav a {
+      color: #FF8C42;
       text-decoration: none;
-      padding: 1rem;
+      padding: 1.5rem;
+      font-weight: 500;
+      font-size: 18px;
     }
   
-    a:hover {
-      background-color: rgba(255, 255, 255, 0.1); /* 호버 효과 예시 */
+    nav a:hover {
+      background-color: rgba(255, 140, 66, 0.1);
+      color: #ffa76a;
     }
   </style>
   

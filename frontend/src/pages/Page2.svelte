@@ -1,5 +1,7 @@
 <!-- // src/routes/About.svelte -->
 <script lang="ts">
+    import { onMount } from 'svelte';
+
     // 이미지 import
     import sculpture1 from '../assets/images_tab1/statue_1.webp';
     import sculpture2 from '../assets/images_tab1/statue_2.webp';
@@ -70,6 +72,10 @@
         if (resultImage) {
             URL.revokeObjectURL(resultImage);
         }
+    });
+
+    onMount(() => {
+        window.scrollTo(0, 0);  // 페이지 로드 시 스크롤을 맨 위로
     });
 </script>
 
@@ -170,6 +176,12 @@
                         </div>
                     {/if}
                 </div>
+                {#if resultImage}
+                    <button class="share-button">
+                        <span class="share-icon">↗</span>
+                        친구들에게 공유하기
+                    </button>
+                {/if}
             </div>
         </div>
     </section>
@@ -179,7 +191,7 @@
 
 <style>
     :global(body) {
-        background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+        background: #111111;
         margin: 0;
         padding: 0;
         overflow-x: hidden;
@@ -206,16 +218,14 @@
         font-weight: bold;
         margin-bottom: 80px;
         margin-top: 80px;
-        color: #000000;
+        color: #CCCCCC;
         padding: 30px 60px;
         white-space: nowrap;
         position: relative;
         z-index: 10;
-        text-shadow: 
-            3px 3px 0 #FF8C42,
-            6px 6px 0 rgba(0, 0, 0, 0.2);
-        transition: transform 0.3s ease;
+        text-shadow: none;
         letter-spacing: 5px;
+        transition: transform 0.3s ease;
     }
 
     .description-section h1:hover {
@@ -228,7 +238,7 @@
         height: 3px;
         background: linear-gradient(90deg, 
             transparent 0%, 
-            #000 50%, 
+            #CCCCCC 50%, 
             transparent 100%
         );
         margin: 0;
@@ -321,7 +331,7 @@
 
     .help-text {
         font-size: 32px;
-        color: #333;
+        color: #CCCCCC;
         text-align: center;
         font-weight: 600;
         padding: 20px;
@@ -330,27 +340,31 @@
 
     .image-processing-container {
         display: flex;
-        justify-content: space-around;
-        align-items: flex-start;
-        width: 100%;
+        justify-content: center;
+        align-items: center;
+        width: 90%;
         padding: 0px;
-        gap: 0px;
+        gap: 100px;
     }
 
     .upload-section, .result-section {
         flex: 1;
         max-width: 600px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
     }
 
     h3 {
         font-size: 24px;
         margin-bottom: 20px;
-        color: #333;
+        color: #CCCCCC;
+        text-align: center;
     }
 
     .upload-area, .result-area {
-        width: 100%;
-        height: 600px;
+        width: 80%;
+        height: 500px;
         border: 3px dashed #ccc;
         border-radius: 15px;
         display: flex;
@@ -445,6 +459,30 @@
         align-self: center;
         margin-top: 40px;
         transform: scale(1.5);
+    }
+
+    .share-button {
+        margin-top: 20px;
+        padding: 12px 24px;
+        font-size: 18px;
+        background-color: #FF6B1A;
+        color: white;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        transition: all 0.3s ease;
+    }
+
+    .share-button:hover {
+        background-color: #FF8C42;
+        transform: translateY(-2px);
+    }
+
+    .share-icon {
+        font-size: 20px;
     }
 </style>
 
