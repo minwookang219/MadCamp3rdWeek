@@ -71,7 +71,6 @@ onDestroy(() => {
     height: 100%;
     white-space: nowrap;
     align-items: center;
-    background-color: aquamarine;
     margin: 80px 0 0 0;
     
   }
