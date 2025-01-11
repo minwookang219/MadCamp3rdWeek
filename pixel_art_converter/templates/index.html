@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Sketch Colorizer</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Sketch Colorizer</h1>
+        <div class="canvas-container">
+            <canvas id="drawingCanvas"></canvas>
+            <div class="tools">
+                <button id="clearBtn">Clear</button>
+                <button id="convertBtn">Colorize</button>
+                <div class="brush-control">
+                    <label for="brushSize">Brush Size:</label>
+                    <input type="range" id="brushSize" min="1" max="20" value="5">
+                </div>
+            </div>
+        </div>
+        <div class="loading" id="loadingSpinner">
+            Converting...
+        </div>
+        <div class="result-container">
+            <img id="resultImage" style="display: none;">
+        </div>
+    </div>
+    <script src="{{ url_for('static', filename='js/draw.js') }}"></script>
+</body>
+</html> 
