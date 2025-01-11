@@ -21,13 +21,14 @@
       padding: 0;
       margin: 0;
       align-items: center;
-      position: absolute;
+      position: fixed;
       justify-content: space-around;
       display: flex;
       top: 0;
       left: 0;
       width: 100%;
-      background-color: transparent;
+      height: 50px;
+      background-color: white;
       z-index: 1000;
     }
   

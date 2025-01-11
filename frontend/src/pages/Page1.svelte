@@ -72,7 +72,7 @@ onDestroy(() => {
     white-space: nowrap;
     align-items: center;
     background-color: aquamarine;
-    margin: 0;
+    margin: 80px 0 0 0;
     
   }
   .home_main{
