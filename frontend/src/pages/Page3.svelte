@@ -1,50 +1,41 @@
+<!-- // src/routes/About.svelte -->
+
 <script lang="ts">
     import { onMount } from 'svelte';
-    import Canvas from '../components/Canvas.svelte';
-
-    import vangoghImage from '../assets/images_tab2/vangogh.webp';
-    import monetImage from '../assets/images_tab2/monet.webp';
-    import picassoImage from '../assets/images_tab2/picasso.webp';
-    import daliImage from '../assets/images_tab2/dali.webp';
-
-    let selectedArtist: string | null = null;
-    let resultImage: string | null = null;
-    let canvasRef: HTMLCanvasElement;
+    import { navigate } from 'svelte-routing';
     
-    const artists = [
-        { id: 'vangogh', name: '빈센트 반 고흐', style: '후기 인상주의', image: vangoghImage },
-        { id: 'dali', name: '살바도르 달리', style: '초현실주의', image: daliImage },
-        { id: 'picasso', name: '파블로 피카소', style: '입체파', image: picassoImage },
-        { id: 'monet', name: '클로드 모네', style: '인상주의', image: monetImage }
-    ];
+    let progress = 100; // 마지막 단계
+    let userName = '';
+    let showPhoneInput = false;
+    let phoneNumber = '';
+    let theme1Image = ''; // theme1의 최종 이미지
+    let theme2Image = ''; // theme2의 최종 이미지
 
-    let progress = 66.66666667; // 세 번째 단계이므로 진행률 66.67%
-
-    async function handleTransform() {
-        if (!selectedArtist || !canvasRef) return;
-
-        const imageData = canvasRef.toDataURL('image/png');
-        
-        try {
-            const response = await fetch('/api/transform', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    image: imageData,
-                    artist: selectedArtist
-                })
-            });
-
-            if (!response.ok) throw new Error('변환 실패');
-            
-            const data = await response.json();
-            resultImage = data.transformedImage;
-        } catch (error) {
-            console.error('Error:', error);
-            alert('이미지 변환 중 오류가 발생했습니다.');
+    function handleNameSubmit() {
+        if (userName.trim()) {
+            showPhoneInput = true;
+        } else {
+            alert('이름을 입력해주세요.');
         }
+    }
+
+    function handlePhoneSubmit() {
+        if (!phoneNumber.match(/^\d{3}-\d{4}-\d{4}$/)) {
+            alert('올바른 전화번호를 입력해주세요.');
+        }
+    }
+
+    function formatPhoneNumber(value: string) {
+        const numbers = value.replace(/[^\d]/g, '');
+        if (numbers.length <= 3) return numbers;
+        if (numbers.length <= 7) return numbers.slice(0, 3) + '-' + numbers.slice(3);
+        return numbers.slice(0, 3) + '-' + numbers.slice(3, 7) + '-' + numbers.slice(7, 11);
+    }
+
+    function handlePhoneInput(event: Event) {
+        const input = event.target as HTMLInputElement;
+        input.value = formatPhoneNumber(input.value);
+        phoneNumber = input.value;
     }
 
     onMount(() => {
@@ -53,63 +44,65 @@
 </script>
 
 <main>
-    <div class="section-divider"></div>
-    
-    <section class="description-section">
-        <h1>화가의 화풍으로 변신하기</h1>
-        <div class="artist-images">
-            {#each artists as artist, i}
-                <img src={artist.image} alt={artist.name} class="artist-title-image" style="animation-delay: {i * 1}s;"/>
-            {/each}
-        </div>
-    </section>
+    <div class="title-container">
+        <div class="title">티켓 만들기</div>
+    </div>
 
-    <div class="section-divider"></div>
+    <div class="content-container">
+        <!-- 좌측: 사용자 정보 입력 -->
+        <div class="left-section">
+            <div class="input-group">
+                <label for="name">이름을 입력해주세요</label>
+                <input 
+                    type="text" 
+                    id="name" 
+                    bind:value={userName}
+                    placeholder="이름"
+                    required
+                />
+                <button class="submit-button" on:click={handleNameSubmit}>
+                    확인
+                </button>
+            </div>
 
-    <section class="function-section">
-        <div class="help-text">
-            그림을 그린 후, 원하는 화가의 화풍으로 변환해드립니다
-        </div>
-        
-        <div class="canvas-container">
-            <Canvas bind:canvasRef={canvasRef} />
+            {#if showPhoneInput}
+                <div class="input-group">
+                    <label for="phone">전화번호를 입력해주세요</label>
+                    <input 
+                        type="tel" 
+                        id="phone" 
+                        value={phoneNumber}
+                        on:input={handlePhoneInput}
+                        placeholder="010-0000-0000"
+                        pattern="[0-9]{3}-[0-9]{4}-[0-9]{4}"
+                        required
+                    />
+                    <button class="submit-button" on:click={handlePhoneSubmit}>
+                        확인
+                    </button>
+                </div>
+            {/if}
         </div>
 
-        <div class="artist-grid">
-            {#each artists as artist}
-                <div 
-                    class="artist-card" 
-                    class:selected={selectedArtist === artist.id}
-                    on:click={() => selectedArtist = artist.id}
-                    on:keypress={() => selectedArtist = artist.id}
-                    role="button"
-                    tabindex="0"
-                >
-                    <img src={artist.image} alt={artist.name} class="artist-image"/>
-                    <div class="artist-info">
-                        <h3>{artist.name}</h3>
-                        <p>{artist.style}</p>
+        <!-- 우측: 이미지 미리보기 -->
+        <div class="right-section">
+            <div class="images-container fade-in">
+                <h2>나의 작품들</h2>
+                <div class="images-grid">
+                    <div class="image-item">
+                        <h3>조각상 작품</h3>
+                        <img src={theme1Image} alt="조각상" />
+                    </div>
+                    <div class="image-item">
+                        <h3>그림 작품</h3>
+                        <img src={theme2Image} alt="그림" />
                     </div>
                 </div>
-            {/each}
-        </div>
-
-        <button 
-            class="transform-button" 
-            disabled={!selectedArtist} 
-            on:click={handleTransform}
-        >
-            화풍 변환하기
-        </button>
-
-        {#if resultImage}
-            <div class="result-container">
-                <h2>변환 결과</h2>
-                <img src={resultImage} alt="변환된 이미지" />
             </div>
-        {/if}
-    </section>
+        </div>
+    </div>
 
+    <!-- 진행 바 -->
     <div class="progress-bar">
         <div class="progress" style={`width: ${progress}%;`}></div>
         <div class="progress-sections">
@@ -121,183 +114,72 @@
 </main>
 
 <style>
-    :global(body) {
-        background: #111111;
-        margin: 0;
-        padding: 0;
-        overflow-x: hidden;
-    }
-
-    main {
-        padding: 0;
-    }
-
-    .section-divider {
-        width: 100%;
-        height: 3px;
-        background: linear-gradient(90deg, 
-            transparent 0%, 
-            #CCCCCC 50%, 
-            transparent 100%
-        );
-        margin: 0;
-        opacity: 0.5;
-    }
-
-    .description-section {
-        height: 100vh;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
+    .title-container {
         position: relative;
-        padding: 0;
-        margin: 0;
-    }
-
-    h1 {
-        font-size: 64px;
-        color: #CCCCCC;
-        text-align: center;
-        margin-bottom: 40px;
-    }
-
-    .help-text {
-        font-size: 32px;
-        color: #CCCCCC;
-        text-align: center;
-        font-weight: 600;
+        margin-top: 98px;
+        width: 68%;
+        margin-left: 16%;
+        margin-right: 16%;
+        background-color: rgba(128, 128, 128, 0.8);
         padding: 20px;
-        letter-spacing: 1px;
-    }
-
-    .artist-grid {
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
-        gap: 30px;
-        max-width: 1000px;
-        margin: 40px auto;
-        padding: 0 20px;
-    }
-
-    .artist-card {
-        display: flex;
-        align-items: center;
-        gap: 20px;
-        background: rgba(255, 255, 255, 0.05);
-        padding: 20px;
-        border: 2px solid #333;
-        border-radius: 12px;
-        cursor: pointer;
-        transition: all 0.3s ease;
-    }
-
-    .artist-card:hover {
-        background: rgba(255, 107, 26, 0.1);
-        transform: translateY(-2px);
-    }
-
-    .artist-card.selected {
-        background: rgba(255, 107, 26, 0.2);
-        border-color: #FF6B1A;
-    }
-
-    .artist-image {
-        width: 120px;
-        height: 120px;
-        object-fit: cover;
+        border: 2px solid #ddd;
         border-radius: 8px;
+        box-shadow: 0 2px 6px rgba(5, 4, 4, 0.1);
+        z-index: 1000;
     }
 
-    .artist-info {
-        flex: 1;
+    .title {
+        font-size: 30px;
+        font-weight: bold;
+        color: #333;
+        text-align: center;
     }
 
-    .artist-card h3 {
-        font-size: 24px;
-        color: #FF6B1A;
-        margin: 0 0 10px 0;
+    .content-container {
+        display: flex;
+        justify-content: space-between;
+        width: 68%;
+        margin: 64px 16% 0 16%;
+        gap: 40px;
     }
 
-    .artist-card p {
-        font-size: 18px;
-        color: #CCCCCC;
-        margin: 0;
-    }
-
-    .canvas-container {
+    .left-section, .right-section {
         width: 100%;
-        max-width: 800px;
-        margin: 40px auto;
-        background: white;
+        background: rgba(255, 255, 255, 0.1);
+        padding: 32px;
         border-radius: 12px;
-        overflow: hidden;
     }
 
-    .transform-button {
+    .input-group {
+        margin-bottom: 24px;
+    }
+
+    label {
         display: block;
-        margin: 40px auto;
-        padding: 15px 40px;
+        color: #CCCCCC;
+        margin-bottom: 12px;
         font-size: 20px;
-        background: #FF6B1A;
-        color: white;
-        border: none;
-        border-radius: 8px;
-        cursor: pointer;
-        transition: all 0.3s ease;
-    }
-
-    .transform-button:disabled {
-        background: #666;
-        cursor: not-allowed;
-    }
-
-    .transform-button:hover:not(:disabled) {
-        background: #ff8142;
-        transform: translateY(-2px);
-    }
-
-    .result-container {
-        max-width: 800px;
-        margin: 40px auto;
         text-align: center;
     }
 
-    .result-container h2 {
-        color: #CCCCCC;
-        margin-bottom: 20px;
-    }
-
-    .result-container img {
-        max-width: 100%;
-        border-radius: 12px;
-    }
-
-    .artist-images {
-        display: flex;
-        gap: 20px;
-        margin-top: 20px;
-        flex-wrap: wrap;
-        justify-content: center;
-    }
-
-    .artist-title-image {
-        width: 400px;
-        height: 400px;
-        object-fit: cover;
+    input {
+        width: 100%;
+        padding: 16px;
+        border: 2px solid #333;
         border-radius: 8px;
-        opacity: 0;
-        transform: scale(0.8);
-        animation: fadeIn 0.5s forwards;
+        background: rgba(255, 255, 255, 0.1);
+        color: black;
+        font-size: 18px;
+        text-align: center;
+        margin-bottom: 16px;
     }
 
-    @keyframes fadeIn {
-        to {
-            opacity: 1;
-            transform: scale(1);
-        }
+    input:focus {
+        border-color: #FF6B1A;
+        outline: none;
     }
 
+    /* 진행 바 스타일 */
     .progress-bar {
         position: fixed;
         top: 0;
@@ -341,7 +223,76 @@
         color: #000;
     }
 
-    .section:last-child {
-        border-right: none;
+    :global(body) {
+        background: #111111;
+        margin: 0;
+        padding: 0;
+        overflow-x: hidden;
+    }
+
+    .submit-button {
+        width: 100%;
+        padding: 16px;
+        background: #FF6B1A;
+        color: white;
+        border: none;
+        border-radius: 8px;
+        font-size: 18px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+
+    .submit-button:hover {
+        background: #ff8142;
+        transform: translateY(-2px);
+    }
+
+    .fade-in {
+        opacity: 0;
+        transform: translateY(20px);
+        animation: fadeIn 0.3s ease forwards;
+    }
+
+    @keyframes fadeIn {
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .images-container {
+        margin-top: 32px;
+        text-align: center;
+    }
+
+    .images-container h2 {
+        color: #CCCCCC;
+        font-size: 24px;
+        margin-bottom: 24px;
+    }
+
+    .images-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 24px;
+        margin-top: 16px;
+    }
+
+    .image-item {
+        text-align: center;
+    }
+
+    .image-item h3 {
+        color: #CCCCCC;
+        font-size: 18px;
+        margin-bottom: 12px;
+    }
+
+    .image-item img {
+        width: 100%;
+        height: auto;
+        border-radius: 8px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
     }
 </style>

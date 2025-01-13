@@ -1,6 +1,7 @@
 <!-- // src/routes/About.svelte -->
 <script lang="ts">
     import { onMount } from 'svelte';
+    import { navigate } from 'svelte-routing';
     // 이미지 import
     import sculpture1 from '../assets/images_tab1/statue_1.webp';
     import sculpture2 from '../assets/images_tab1/statue_2.webp';
@@ -76,6 +77,10 @@
     onMount(() => {
         window.scrollTo(0, 0);  // 페이지 로드 시 스크롤을 맨 위로
     });
+
+    function handleNextPage() {
+        navigate('/theme1_1');
+    }
 </script>
 
 <main>
@@ -104,7 +109,7 @@
             </div>
         </div>
         
-        <h1>조각미남</h1>
+        <h1>조각하세요</h1>
 
         <!-- 하단 슬라이더 -->
         <div class="slider-container bottom" 
@@ -130,7 +135,7 @@
     </section>
 
     <div class="section-divider"></div>
-
+<!-- 
     <section class="function-section">
         <div class="help-text">
             사진을 첨부하시면, 조각상으로 바꿔드립니다
@@ -183,7 +188,14 @@
                 {/if}
             </div>
         </div>
-    </section>
+    </section> -->
+
+    <div class="bottom-right-button">
+        <button class="next-button" on:click={handleNextPage}>
+            다음 단계로
+            <span class="arrow">→</span>
+        </button>
+    </div>
 
 </main>
 
@@ -479,6 +491,43 @@
 
     .share-icon {
         font-size: 20px;
+    }
+
+    .bottom-right-button {
+        position: fixed;
+        bottom: 40px;
+        right: 40px;
+        z-index: 1000;
+    }
+
+    .next-button {
+        padding: 16px 28px;
+        background-color: #4077d6;
+        color: white;
+        border: none;
+        border-radius: 12px;
+        font-size: 18px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .next-button:hover {
+        background-color: #3567c0;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(64, 119, 214, 0.3);
+    }
+
+    .next-button .arrow {
+        font-size: 20px;
+        transition: transform 0.2s ease;
+    }
+
+    .next-button:hover .arrow {
+        transform: translateX(4px);
     }
 </style>
 

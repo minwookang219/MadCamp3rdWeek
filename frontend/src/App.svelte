@@ -3,13 +3,15 @@
   import { Router, Route } from 'svelte-routing';
   import Navbar from './pages/Navbar.svelte';
   import InitialPage from './pages/InitialPage.svelte';
-  import Theme1 from './pages/Page2_1.svelte';
-  import Theme1_2 from './pages/Page2_2.svelte';
-  import Theme2 from './pages/Page3.svelte';
-  import Theme3 from './pages/Page4.svelte';
+  import Theme1_0 from './pages/Page1_0.svelte';
+  import Theme1_1 from './pages/Page1_1.svelte';
+  import Theme1_2 from './pages/Page1_2.svelte';
+  import Theme2 from './pages/Page2.svelte';
+  import Theme3 from './pages/Page3.svelte';
 
   let initial_main = 'main page';
-  let name_page1 = 'page 1';
+  let name_page1_0 = 'page 1_0';
+  let name_page1_1 = 'page 1_1';
   let name_page1_2 = 'page 1_2';
   let name_page2 = 'page 2';
   let name_page3 = 'page 3';
@@ -25,7 +27,8 @@
     <Navbar />
   {/if}
   <Route path="/" component={InitialPage} name={initial_main} />
-  <Route path="/theme1" component={Theme1} name={name_page1} />
+  <Route path="/theme1_0" component={Theme1_0} name={name_page1_0} />
+  <Route path="/theme1_1" component={Theme1_1} name={name_page1_1} />
   <Route path="/theme1_2" component={Theme1_2} name={name_page1_2} />
   <Route path="/theme2" component={Theme2} name={name_page2} />
   <Route path="/theme3" component={Theme3} name={name_page3} />

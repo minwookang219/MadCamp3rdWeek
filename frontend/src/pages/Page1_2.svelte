@@ -59,6 +59,9 @@
           <div class="image-preview">
               <img src={sculptureImage} alt="2D 조각상" />
           </div>
+          <button class="convert-button" on:click={convert2Dto3D}>
+              3D로 변환하기
+          </button>
       </div>
 
       <!-- 오른쪽: 3D 이미지 -->
@@ -75,9 +78,6 @@
                    </div>
                {/if}
            </div>
-           <button class="convert-button" on:click={convert2Dto3D}>
-               3D로 변환하기
-           </button>
            <button class="next-button" on:click={handleNextPage}>
                다음 단계로
                <span class="arrow">→</span>
@@ -266,6 +266,10 @@
 
   .left-section {
       flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 24px;
   }
 
   .right-section {
@@ -388,7 +392,6 @@
     font-size: 18px;
     font-weight: bold;
     cursor: pointer;
-    margin-top: 20px;
     transition: all 0.2s ease;
   }
 

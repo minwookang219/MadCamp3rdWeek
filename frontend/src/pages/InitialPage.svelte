@@ -13,12 +13,12 @@
           setTimeout(() => {
             showFinalText = true;
           }, 2000);
-        }, 1000);
+        }, 1000);   
       }
     }
   
     function goToTheme1() {
-      navigate('/theme1');
+      navigate('/theme1_0');
     }
   </script>
   
@@ -99,7 +99,7 @@
     align-items: center;
     justify-content: center;
     width: 100%;
-    height: 800px;
+    height: 1000px;
   }
   
   .home_main {
