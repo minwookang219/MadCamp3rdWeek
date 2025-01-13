@@ -18,6 +18,8 @@
         { id: 'monet', name: '클로드 모네', style: '인상주의', image: monetImage }
     ];
 
+    let progress = 66.66666667; // 세 번째 단계이므로 진행률 66.67%
+
     async function handleTransform() {
         if (!selectedArtist || !canvasRef) return;
 
@@ -107,6 +109,15 @@
             </div>
         {/if}
     </section>
+
+    <div class="progress-bar">
+        <div class="progress" style={`width: ${progress}%;`}></div>
+        <div class="progress-sections">
+            <div class="section">조각상 만들기</div>
+            <div class="section">배경 꾸미기</div>
+            <div class="section">티켓 마무리</div>
+        </div>
+    </div>
 </main>
 
 <style>
@@ -285,5 +296,52 @@
             opacity: 1;
             transform: scale(1);
         }
+    }
+
+    .progress-bar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 50px;
+        background-color: #f0f0f0;
+        z-index: 9999;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 10px;
+    }
+
+    .progress {
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 100%;
+        background-color: #aff7b2;
+        z-index: 1;
+        transition: width 0.3s ease;
+    }
+
+    .progress-sections {
+        display: flex;
+        width: 100%;
+        height: 100%;
+        position: relative;
+        z-index: 2;
+    }
+
+    .section {
+        flex: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        font-size: 16px;
+        font-weight: bold;
+        color: #000;
+    }
+
+    .section:last-child {
+        border-right: none;
     }
 </style>

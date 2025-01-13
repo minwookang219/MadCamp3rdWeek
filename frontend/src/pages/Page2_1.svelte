@@ -1,5 +1,6 @@
 <script lang="ts">
     import { onMount } from 'svelte';
+    import { navigate } from 'svelte-routing';
     // 진행률 (0~100 사이의 값)
     let progress = 33.33333333; // 예: 현재 진행률 50%
     let sculptureText = ''; // 사용자가 입력한 텍스트를 저장
@@ -15,31 +16,63 @@
       '자유의 여신상'
     ];
   
-    const API_URL = 'http://localhost:8000';
+    const HUGGING_FACE_API_KEY = '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';
+    console.log('Full env:', import.meta.env);
   
     async function generateSculpture() {
       if (!sculptureText.trim()) return;
       
       isLoading = true;
       try {
-        const response = await fetch(`${API_URL}/generate-sculpture`, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            prompt: sculptureText
-          }),
-        });
-  
-        if (!response.ok) {
-          throw new Error('이미지 생성에 실패했습니다');
+        console.log('API Key:', HUGGING_FACE_API_KEY);
+        console.log('Sending request with prompt:', sculptureText);
+        
+        let retries = 0;
+        const maxRetries = 3;
+        
+        while (retries < maxRetries) {
+          const response = await fetch('https://api-inference.huggingface.co/models/CompVis/stable-diffusion-v1-1', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': `Bearer ${HUGGING_FACE_API_KEY}`,
+            },
+            body: JSON.stringify({
+              inputs: `A simple marble sculpture of ${sculptureText}, white marble texture, simple lighting`,
+            }),
+          });
+    
+          if (!response.ok) {
+            const errorData = await response.text();
+            console.error('Response not OK:', response.status, errorData);
+            
+            // 모델 로딩 중인 경우
+            if (response.status === 503) {
+              const errorJson = JSON.parse(errorData);
+              const waitTime = Math.ceil(errorJson.estimated_time || 20);
+              console.log(`Waiting ${waitTime} seconds for model to load...`);
+              await new Promise(resolve => setTimeout(resolve, waitTime * 1000));
+              retries++;
+              continue;
+            }
+            
+            throw new Error('이미지 생성에 실패했습니다');
+          }
+    
+          const blob = await response.blob();
+          sculptureImage = URL.createObjectURL(blob);
+          break;
         }
-  
-        const data = await response.json();
-        sculptureImage = `data:image/png;base64,${data.image}`;
-      } catch (error) {
-        console.error('Error:', error);
+        
+        if (retries >= maxRetries) {
+          throw new Error('모델 로딩 시간이 너무 오래 걸립니다. 나중에 다시 시도해주세요.');
+        }
+      } catch (error: any) {
+        console.error('Error details:', {
+          message: error.message,
+          stack: error.stack,
+          error
+        });
         alert('이미지 생성 중 오류가 발생했습니다');
       } finally {
         isLoading = false;
@@ -49,6 +82,10 @@
     function handleRecommendedClick(name: string) {
       sculptureText = name;
       generateSculpture();
+    }
+  
+    async function handleNextPage() {
+      navigate('/theme1_2');
     }
   </script>
   
@@ -104,7 +141,7 @@
                     </div>
                 {/if}
             </div>
-            <button class="next-button">
+            <button class="next-button" on:click={handleNextPage}>
                 다음 단계로
                 <span class="arrow">→</span>
             </button>

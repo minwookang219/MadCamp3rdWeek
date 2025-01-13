@@ -4,14 +4,15 @@
   import Navbar from './pages/Navbar.svelte';
   import InitialPage from './pages/InitialPage.svelte';
   import Theme1 from './pages/Page2_1.svelte';
+  import Theme1_2 from './pages/Page2_2.svelte';
   import Theme2 from './pages/Page3.svelte';
   import Theme3 from './pages/Page4.svelte';
 
   let initial_main = 'main page';
   let name_page1 = 'page 1';
+  let name_page1_2 = 'page 1_2';
   let name_page2 = 'page 2';
   let name_page3 = 'page 3';
-
   let currentRoute = ''; // 현재 라우트 추적
 
   // 라우트 변경 시 실행되는 함수
@@ -25,6 +26,7 @@
   {/if}
   <Route path="/" component={InitialPage} name={initial_main} />
   <Route path="/theme1" component={Theme1} name={name_page1} />
+  <Route path="/theme1_2" component={Theme1_2} name={name_page1_2} />
   <Route path="/theme2" component={Theme2} name={name_page2} />
   <Route path="/theme3" component={Theme3} name={name_page3} />
 </Router>
