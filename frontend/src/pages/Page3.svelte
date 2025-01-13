@@ -2,15 +2,20 @@
     import { onMount } from 'svelte';
     import Canvas from '../components/Canvas.svelte';
 
+    import vangoghImage from '../assets/images_tab2/vangogh.webp';
+    import monetImage from '../assets/images_tab2/monet.webp';
+    import picassoImage from '../assets/images_tab2/picasso.webp';
+    import daliImage from '../assets/images_tab2/dali.webp';
+
     let selectedArtist: string | null = null;
     let resultImage: string | null = null;
     let canvasRef: HTMLCanvasElement;
     
     const artists = [
-        { id: 'vangogh', name: '빈센트 반 고흐', style: '후기 인상주의', image: 'frontend/src/assets/images_tab2/dali.jpg' },
-        { id: 'monet', name: '클로드 모네', style: '인상주의', image: 'frontend/src/assets/images_tab2/monet.jpg' },
-        { id: 'picasso', name: '파블로 피카소', style: '입체파', image: 'frontend/src/assets/images_tab2/picasso.jpg' },
-        { id: 'dali', name: '살바도르 달리', style: '초현실주의', image: 'frontend/src/assets/images_tab2/dali.jpg' }
+        { id: 'vangogh', name: '빈센트 반 고흐', style: '후기 인상주의', image: vangoghImage },
+        { id: 'dali', name: '살바도르 달리', style: '초현실주의', image: daliImage },
+        { id: 'picasso', name: '파블로 피카소', style: '입체파', image: picassoImage },
+        { id: 'monet', name: '클로드 모네', style: '인상주의', image: monetImage }
     ];
 
     async function handleTransform() {
@@ -50,6 +55,11 @@
     
     <section class="description-section">
         <h1>화가의 화풍으로 변신하기</h1>
+        <div class="artist-images">
+            {#each artists as artist, i}
+                <img src={artist.image} alt={artist.name} class="artist-title-image" style="animation-delay: {i * 1}s;"/>
+            {/each}
+        </div>
     </section>
 
     <div class="section-divider"></div>
@@ -250,5 +260,30 @@
     .result-container img {
         max-width: 100%;
         border-radius: 12px;
+    }
+
+    .artist-images {
+        display: flex;
+        gap: 20px;
+        margin-top: 20px;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .artist-title-image {
+        width: 400px;
+        height: 400px;
+        object-fit: cover;
+        border-radius: 8px;
+        opacity: 0;
+        transform: scale(0.8);
+        animation: fadeIn 0.5s forwards;
+    }
+
+    @keyframes fadeIn {
+        to {
+            opacity: 1;
+            transform: scale(1);
+        }
     }
 </style>
