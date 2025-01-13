@@ -8,8 +8,11 @@
     let userName = '';
     let showPhoneInput = false;
     let phoneNumber = '';
+    let showDateInput = false;
+    let visitDate = '';
     let theme1Image = ''; // theme1의 최종 이미지
     let theme2Image = ''; // theme2의 최종 이미지
+    let isFormCompleted = false;
 
     function handleNameSubmit() {
         if (userName.trim()) {
@@ -22,7 +25,21 @@
     function handlePhoneSubmit() {
         if (!phoneNumber.match(/^\d{3}-\d{4}-\d{4}$/)) {
             alert('올바른 전화번호를 입력해주세요.');
+        } else {
+            showDateInput = true;
         }
+    }
+
+    function handleDateSubmit() {
+        if (!visitDate) {
+            alert('방문일자를 선택해주세요.');
+        } else {
+            isFormCompleted = true;
+        }
+    }
+
+    function handleCreateTicket() {
+        navigate('/theme4');
     }
 
     function formatPhoneNumber(value: string) {
@@ -82,6 +99,22 @@
                     </button>
                 </div>
             {/if}
+
+            {#if showDateInput}
+                <div class="input-group">
+                    <label for="date">방문일자를 선택해주세요</label>
+                    <input 
+                        type="date" 
+                        id="date" 
+                        bind:value={visitDate}
+                        min={new Date().toISOString().split('T')[0]}
+                        required
+                    />
+                    <button class="submit-button" on:click={handleDateSubmit}>
+                        확인
+                    </button>
+                </div>
+            {/if}
         </div>
 
         <!-- 우측: 이미지 미리보기 -->
@@ -99,6 +132,15 @@
                     </div>
                 </div>
             </div>
+
+            {#if isFormCompleted}
+                <div class="ticket-button-container fade-in">
+                    <button class="ticket-button" on:click={handleCreateTicket}>
+                        티켓 만들기
+                        <span class="arrow">→</span>
+                    </button>
+                </div>
+            {/if}
         </div>
     </div>
 
@@ -172,6 +214,19 @@
         font-size: 18px;
         text-align: center;
         margin-bottom: 16px;
+        cursor: pointer;
+    }
+
+    input[type="date"] {
+        padding: 14px 16px;
+        text-align: center;
+        font-family: inherit;
+    }
+
+    input[type="date"]::-webkit-calendar-picker-indicator {
+        cursor: pointer;
+        font-size: 18px;
+        padding: 4px;
     }
 
     input:focus {
@@ -294,5 +349,41 @@
         height: auto;
         border-radius: 8px;
         box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    }
+
+    .ticket-button-container {
+        margin-top: 40px;
+        text-align: center;
+    }
+
+    .ticket-button {
+        padding: 20px 40px;
+        background: #FF6B1A;
+        color: white;
+        border: none;
+        border-radius: 12px;
+        font-size: 24px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin: 0 auto;
+    }
+
+    .ticket-button:hover {
+        background: #ff8142;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(255, 107, 26, 0.3);
+    }
+
+    .ticket-button .arrow {
+        font-size: 24px;
+        transition: transform 0.2s ease;
+    }
+
+    .ticket-button:hover .arrow {
+        transform: translateX(4px);
     }
 </style>

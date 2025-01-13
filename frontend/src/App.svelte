@@ -8,6 +8,7 @@
   import Theme1_2 from './pages/Page1_2.svelte';
   import Theme2 from './pages/Page2.svelte';
   import Theme3 from './pages/Page3.svelte';
+  import Theme4 from './pages/Page4.svelte';
 
   let initial_main = 'main page';
   let name_page1_0 = 'page 1_0';
@@ -15,6 +16,7 @@
   let name_page1_2 = 'page 1_2';
   let name_page2 = 'page 2';
   let name_page3 = 'page 3';
+  let name_page4 = 'page 4';
   let currentRoute = ''; // 현재 라우트 추적
 
   // 라우트 변경 시 실행되는 함수
@@ -32,6 +34,7 @@
   <Route path="/theme1_2" component={Theme1_2} name={name_page1_2} />
   <Route path="/theme2" component={Theme2} name={name_page2} />
   <Route path="/theme3" component={Theme3} name={name_page3} />
+  <Route path="/theme4" component={Theme4} name={name_page4} />
 </Router>
 
 <style>
