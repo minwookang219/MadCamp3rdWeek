@@ -7,16 +7,19 @@
   import Theme2 from './pages/Page3.svelte';
   import Theme3 from './pages/Page4.svelte';
 
-  let name = 'lee';
+  let name_main = 'main page';
+  let name_page1 = 'page 1';
+  let name_page2 = 'page 2';
+  let name_page3 = 'page 3';
 </script>
 
 <Router>
   <Navbar/>
   
-  <Route path="/" component={Home} name={name} />
-  <Route path="/theme1" component={Theme1} />
-  <Route path="/theme2" component={Theme2} />
-  <Route path="/theme3" component={Theme3} />
+  <Route path="/" component={Home} name={name_main} />
+  <Route path="/theme1" component={Theme1} name={name_page1} />
+  <Route path="/theme2" component={Theme2} name={name_page2} />
+  <Route path="/theme3" component={Theme3} name={name_page3} />
 </Router>
 
 <style>
