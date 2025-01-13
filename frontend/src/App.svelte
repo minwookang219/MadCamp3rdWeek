@@ -1,22 +1,29 @@
 <!-- // src/App.svelte -->
 <script lang="ts">
-  import { Router, Route } from 'svelte-routing';
+  import { Router, Route, LOCATION } from 'svelte-routing';
   import Navbar from './pages/Navbar.svelte';
-  import Home from './pages/Page1.svelte';
+  import InitialPage from './pages/InitialPage.svelte';
   import Theme1 from './pages/Page2.svelte';
   import Theme2 from './pages/Page3.svelte';
   import Theme3 from './pages/Page4.svelte';
 
-  let name_main = 'main page';
+  let initial_main = 'main page';
   let name_page1 = 'page 1';
   let name_page2 = 'page 2';
   let name_page3 = 'page 3';
+
+  let currentRoute = ''; // 현재 라우트 추적
+
+  // 라우트 변경 시 실행되는 함수
+    // onMount 또는 초기 렌더링 시 라우트 상태 설정
+    $: currentRoute = window.location.pathname; // 현재 URL 경로 추적
 </script>
 
 <Router>
-  <Navbar/>
-  
-  <Route path="/" component={Home} name={name_main} />
+  {#if currentRoute !== '/'}
+    <Navbar />
+  {/if}
+  <Route path="/" component={InitialPage} name={initial_main} />
   <Route path="/theme1" component={Theme1} name={name_page1} />
   <Route path="/theme2" component={Theme2} name={name_page2} />
   <Route path="/theme3" component={Theme3} name={name_page3} />
