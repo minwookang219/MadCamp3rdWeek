@@ -16,7 +16,6 @@
       '자유의 여신상'
     ];
   
-    const HUGGING_FACE_API_KEY = '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';
     console.log('Full env:', import.meta.env);
   
     async function generateSculpture() {
@@ -24,7 +23,6 @@
       
       isLoading = true;
       try {
-        console.log('API Key:', HUGGING_FACE_API_KEY);
         console.log('Sending request with prompt:', sculptureText);
         
         let retries = 0;
