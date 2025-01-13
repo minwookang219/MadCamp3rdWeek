@@ -1,4 +1,4 @@
-<!-- // src/lib/Navbar.svelte -->
+// src/lib/Navbar.svelte
 <script lang="ts">
     import { Link } from 'svelte-routing';
   </script>
@@ -27,8 +27,7 @@
       top: 0;
       left: 0;
       width: 100%;
-      height: 70px;
-      background-color: #333;
+      height: 50px;
       box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
       z-index: 1000;
     }

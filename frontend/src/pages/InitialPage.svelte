@@ -54,9 +54,13 @@
         </div>
       </div>
       {#if showFullLogo}
+        <div class="initial_lefttop">
+            몰입전시 온라인 팝업스토어
+        </div>
         <div class="click-guide">
           로고를 눌러 시작하세요
         </div>
+        
       {/if}
       {#if showFinalText}
         <div class="description-container">
@@ -292,6 +296,17 @@
   .click-guide {
     position: absolute;
     top: calc(50% + 280px);
+    left: 50%;
+    transform: translateX(-50%);
+    color: white;
+    font-size: 40px;
+    opacity: 0;
+    animation: fadeIn 1s ease 1s forwards;
+  }
+
+  .initial_lefttop {
+    position: absolute;
+    top: 80px;
     left: 50%;
     transform: translateX(-50%);
     color: white;

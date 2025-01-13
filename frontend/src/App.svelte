@@ -1,9 +1,9 @@
 <!-- // src/App.svelte -->
 <script lang="ts">
-  import { Router, Route, LOCATION } from 'svelte-routing';
+  import { Router, Route } from 'svelte-routing';
   import Navbar from './pages/Navbar.svelte';
   import InitialPage from './pages/InitialPage.svelte';
-  import Theme1 from './pages/Page2.svelte';
+  import Theme1 from './pages/Page2_1.svelte';
   import Theme2 from './pages/Page3.svelte';
   import Theme3 from './pages/Page4.svelte';
 
@@ -31,4 +31,10 @@
 
 <style>
   /* 글로벌 스타일을 여기에 추가할 수 있습니다 */
+  :global(body) {
+    background-color: #f5f5f5;
+    margin: 0;
+    padding: 0;
+  }
 </style>
+  

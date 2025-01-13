@@ -1,7 +1,6 @@
 <!-- // src/routes/About.svelte -->
 <script lang="ts">
     import { onMount } from 'svelte';
-
     // 이미지 import
     import sculpture1 from '../assets/images_tab1/statue_1.webp';
     import sculpture2 from '../assets/images_tab1/statue_2.webp';
@@ -185,6 +184,7 @@
             </div>
         </div>
     </section>
+
 </main>
 
 
