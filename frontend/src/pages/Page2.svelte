@@ -7,6 +7,7 @@
     import monetImage from '../assets/images_tab2/monet.webp';
     import picassoImage from '../assets/images_tab2/picasso.webp';
     import daliImage from '../assets/images_tab2/dali.webp';
+    import logoImage from '../assets/logo_images.png';
 
     let selectedArtist: string | null = null;
     let resultImage: string | null = null;
@@ -136,6 +137,16 @@
             <div class="section">티켓 마무리</div>
         </div>
     </div>
+
+    
+  <div class="footer">
+    <div class="footer-content">
+        <img src={logoImage} alt="전시회 로고" class="footer-logo" />
+        <div class="footer-text">
+            몰입전시회 팝업스토어 "전시회"
+        </div>
+    </div>
+</div>
 </main>
 
 <style>
@@ -144,10 +155,13 @@
         margin: 0;
         padding: 0;
         overflow-x: hidden;
+        overflow-y: hidden;
     }
 
     main {
         padding: 0;
+        height: 100vh;
+        overflow: hidden;
     }
 
     .section-divider {
@@ -437,6 +451,12 @@
         overflow-y: scroll;
         scroll-snap-type: y mandatory;
         scroll-snap-stop: always;
+        scrollbar-width: none;  /* Firefox */
+        -ms-overflow-style: none;  /* IE and Edge */
+    }
+
+    .scroll-container::-webkit-scrollbar {
+        display: none;  /* Chrome, Safari, Opera */
     }
 
     .scroll-section {
@@ -444,6 +464,12 @@
         scroll-snap-align: start;
         position: relative;
         overflow-y: auto;
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+    }
+
+    .scroll-section::-webkit-scrollbar {
+        display: none;
     }
 
     .function-section {
@@ -455,6 +481,12 @@
         padding: 80px 0;
         box-sizing: border-box;
         overflow-y: visible;
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+    }
+
+    .function-section::-webkit-scrollbar {
+        display: none;
     }
 
     .content-layout {
@@ -479,4 +511,39 @@
     .right-panel {
         flex: 7;  /* 70% */
     }
+
+    .footer {
+        bottom: 20px;
+        left: 0;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 10px;
+        z-index: 100;
+    }
+
+    .footer-content {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        background: rgba(255, 255, 255, 0.1);
+        padding: 12px 24px;
+        border-radius: 12px;
+        backdrop-filter: blur(5px);
+    }
+
+    .footer-logo {
+        height: 40px;
+        width: auto;
+        object-fit: contain;
+    }
+
+    .footer-text {
+        color: black;
+        font-size: 16px;
+        font-weight: 500;
+        letter-spacing: 0.5px;
+    }
+
 </style>

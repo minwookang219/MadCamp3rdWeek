@@ -132,6 +132,7 @@
             </div>
         </div>
     </div>
+
 </main>
 
 <style>
@@ -486,6 +487,41 @@
 
     .footer-text {
         color: white;
+        font-size: 16px;
+        font-weight: 500;
+        letter-spacing: 0.5px;
+    }
+
+    .footer {
+        position: fixed;
+        bottom: 20px;
+        left: 0;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 10px;
+        z-index: 100;
+    }
+
+    .footer-content {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        background: rgba(255, 255, 255, 0.1);
+        padding: 12px 24px;
+        border-radius: 12px;
+        backdrop-filter: blur(5px);
+    }
+
+    .footer-logo {
+        height: 40px;
+        width: auto;
+        object-fit: contain;
+    }
+
+    .footer-text {
+        color: black;
         font-size: 16px;
         font-weight: 500;
         letter-spacing: 0.5px;

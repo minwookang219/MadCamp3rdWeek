@@ -1,6 +1,7 @@
 <script lang="ts">
   import { onMount } from 'svelte';
   import { navigate } from 'svelte-routing';
+  import logoImage from '../assets/logo_images.png';
   let progress = 33.33333333; // 두 번째 단계이므로 진행률 수정
   let sculptureImage = ''; // 2D 이미지
   let sculpture3DImage = ''; // 3D 이미지
@@ -94,6 +95,16 @@
       <div class="section">티켓 마무리</div>
     </div>
   </div>
+
+  <div class="footer">
+    <div class="footer-content">
+        <img src={logoImage} alt="전시회 로고" class="footer-logo" />
+        <div class="footer-text">
+            몰입전시회 팝업스토어 "전시회"
+        </div>
+    </div>
+</div>
+
 </main>
 
 <style>
@@ -407,4 +418,39 @@
       padding: 60px 0;
       box-sizing: border-box;
   }
+
+  
+  .footer {
+        bottom: 20px;
+        left: 0;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 10px;
+        z-index: 100;
+    }
+
+    .footer-content {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        background: rgba(255, 255, 255, 0.1);
+        padding: 12px 24px;
+        border-radius: 12px;
+        backdrop-filter: blur(5px);
+    }
+
+    .footer-logo {
+        height: 40px;
+        width: auto;
+        object-fit: contain;
+    }
+
+    .footer-text {
+        color: black;
+        font-size: 16px;
+        font-weight: 500;
+        letter-spacing: 0.5px;
+    }
 </style>
