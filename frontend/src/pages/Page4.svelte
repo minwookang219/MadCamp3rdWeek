@@ -4,6 +4,7 @@
     import { navigate } from 'svelte-routing';
     import backgroundImage from '../assets/image_background.jpg';
     import characterImage from '../assets/image_character.jpg';
+    import logoImage from '../assets/logo_images.png';
     
     let userName = '';
     let theme1Image = '';
@@ -121,6 +122,15 @@
             </div>
         </div>
         {/if}
+    </div>
+
+    <div class="footer">
+        <div class="footer-content">
+            <img src={logoImage} alt="전시회 로고" class="footer-logo" />
+            <div class="footer-text">
+                몰입전시회 팝업스토어 "전시회"
+            </div>
+        </div>
     </div>
 </main>
 
@@ -358,7 +368,7 @@
 
     .button-container {
         position: fixed;
-        bottom: 100px;
+        bottom: 120px;
         right: 100px;
         z-index: 10;
         display: flex;
@@ -444,5 +454,40 @@
 
     .discount-icon {
         font-size: 24px;
+    }
+
+    .footer {
+        position: fixed;
+        bottom: 20px;
+        left: 0;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 10px;
+        z-index: 100;
+    }
+
+    .footer-content {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        background: rgba(255, 255, 255, 0.1);
+        padding: 12px 24px;
+        border-radius: 12px;
+        backdrop-filter: blur(5px);
+    }
+
+    .footer-logo {
+        height: 40px;
+        width: auto;
+        object-fit: contain;
+    }
+
+    .footer-text {
+        color: white;
+        font-size: 16px;
+        font-weight: 500;
+        letter-spacing: 0.5px;
     }
 </style>

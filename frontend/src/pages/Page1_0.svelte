@@ -8,6 +8,7 @@
     import sculpture3 from '../assets/images_tab1/statue_3.webp';
     import sculpture4 from '../assets/images_tab1/statue_4.webp';
     import sculpture5 from '../assets/images_tab1/statue_5.webp';
+    import logoImage from '../assets/logo_images.png';
 
     // 슬라이더 애니메이션을 위한 변수
     let isHovered = false;
@@ -195,6 +196,15 @@
             다음 단계로
             <span class="arrow">→</span>
         </button>
+    </div>
+
+    <div class="footer">
+        <div class="footer-content">
+            <img src={logoImage} alt="전시회 로고" class="footer-logo" />
+            <div class="footer-text">
+                몰입전시회 팝업스토어 "전시회"
+            </div>
+        </div>
     </div>
 
 </main>
@@ -528,6 +538,41 @@
 
     .next-button:hover .arrow {
         transform: translateX(4px);
+    }
+
+    .footer {
+        position: fixed;
+        bottom: 20px;
+        left: 0;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 10px;
+        z-index: 100;
+    }
+
+    .footer-content {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        background: rgba(255, 255, 255, 0.1);
+        padding: 12px 24px;
+        border-radius: 12px;
+        backdrop-filter: blur(5px);
+    }
+
+    .footer-logo {
+        height: 40px;
+        width: auto;
+        object-fit: contain;
+    }
+
+    .footer-text {
+        color: white;
+        font-size: 16px;
+        font-weight: 500;
+        letter-spacing: 0.5px;
     }
 </style>
 
