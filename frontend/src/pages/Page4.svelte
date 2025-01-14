@@ -2,9 +2,8 @@
     import { onMount } from 'svelte';
     import html2canvas from 'html2canvas';
     import { navigate } from 'svelte-routing';
-    import characterImage from '../assets/image_character.jpg';
     import logoImage from '../assets/logo_images.png';
-    import { resultImageStore } from '../store';
+    import { resultImageStore, characterImageStore } from '../store';
     import { get } from 'svelte/store';
     let userName = '';
     let theme1Image = '';
@@ -17,10 +16,24 @@
     let ticketNumber = Math.floor(Math.random() * 90000) + 10000;
     
     let BackgroundImage: string | null = null;
+    let CharacterImage: string | null = null;
     
     onMount(() => {
         BackgroundImage = get(resultImageStore);
+        CharacterImage = get(characterImageStore);
         window.scrollTo(0, 0);
+        
+        // 4초 후에 완료 메시지 표시
+        setTimeout(() => {
+            isCompleted = true;
+            // 1초 후에 로딩 화면을 올리고 티켓 표시
+            setTimeout(() => {
+                isLoading = false;
+                setTimeout(() => {
+                    showTicket = true;
+                }, 500);
+            }, 1000);
+        }, 4000);
     });
     async function saveTicket() {
         if (!ticketRef) return;
@@ -51,21 +64,6 @@
     function goToHome() {
         navigate('/');
     }
-
-    onMount(() => {
-        window.scrollTo(0, 0);
-        // 4초 후에 완료 메시지 표시
-        setTimeout(() => {
-            isCompleted = true;
-            // 1초 후에 로딩 화면을 올리고 티켓 표시
-            setTimeout(() => {
-                isLoading = false;
-                setTimeout(() => {
-                    showTicket = true;
-                }, 500);
-            }, 1000);
-        }, 4000);
-    });
 </script>
 
 <main>
@@ -84,7 +82,7 @@
             <div class="ticket" bind:this={ticketRef}>
                 <div class="ticket-background" style="background-image: url({BackgroundImage})">
                     <div class="character-image">
-                        <img src={characterImage} alt="Character" />
+                        <img src={CharacterImage} alt="Character" />
                     </div>
                     
                     <div class="ticket-info">
@@ -163,6 +161,8 @@
     .loading-content {
         text-align: center;
         color: white;
+        position: relative;
+        padding: 20px;
     }
     
     .loading-spinner {
@@ -175,22 +175,14 @@
         animation: spin 1s linear infinite;
     }
     
-    .loading-content p {
-        font-size: 24px;
-        font-weight: bold;
-        color: var(--primary-color);
-    }
-    
-    .loading-spinner.hide {
-        opacity: 0;
-        transition: opacity 0.3s ease;
-    }
-    
     .loading-text, .complete-text {
         position: absolute;
         left: 50%;
+        top: 100%;
         transform: translateX(-50%);
         transition: all 0.3s ease;
+        margin-top: 20px;
+        width: 100%;
     }
     
     .loading-text {
@@ -482,7 +474,6 @@
         background: rgba(255, 255, 255, 0.1);
         padding: 12px 24px;
         border-radius: 12px;
-        backdrop-filter: blur(5px);
     }
 
     .footer-logo {
@@ -517,7 +508,6 @@
         background: rgba(255, 255, 255, 0.1);
         padding: 12px 24px;
         border-radius: 12px;
-        backdrop-filter: blur(5px);
     }
 
     .footer-logo {

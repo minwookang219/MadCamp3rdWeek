@@ -9,6 +9,7 @@
     import logoImage from '../assets/logo_images.png';
     import { resultImageStore } from '../store'; // Import store
     
+    let isLoading = false;
     let selectedArtist: string | null = null;
     let resultImage: string | null = null;
     let canvasRef: HTMLCanvasElement;
@@ -29,6 +30,7 @@
         return;
     }
 
+    isLoading = true;
     try {
             // Canvas의 이미지를 Blob으로 변환
             const contentBlob = await new Promise<Blob | null>(resolve => {
@@ -78,7 +80,7 @@
             const errorMessage = error instanceof Error ? error.message : '알 수 없는 오류가 발생했습니다';
             alert('이미지 처리 중 오류가 발생했습니다: ' + errorMessage);
         } finally {
-            loading = false; // 로딩 상태 종료
+            isLoading = false;
         }
 }
 
@@ -103,6 +105,15 @@
 </script>
 
 <main>
+    {#if isLoading}
+        <div class="loading-overlay">
+            <div class="loading-content">
+                <div class="loading-spinner"></div>
+                <p>화풍 변환 중...</p>
+            </div>
+        </div>
+    {/if}
+
     <div class="scroll-container">
         <div class="scroll-section">
             <div class="section-divider"></div>
@@ -591,6 +602,51 @@
         font-size: 16px;
         font-weight: 500;
         letter-spacing: 0.5px;
+    }
+
+    .loading-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100vh;
+        background-color: rgba(0, 0, 0, 0.8);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 9999;
+    }
+
+    .loading-content {
+        text-align: center;
+        color: white;
+        background: rgba(255, 255, 255, 0.1);
+        padding: 40px;
+        border-radius: 16px;
+        box-shadow: 0 4px 32px rgba(0, 0, 0, 0.2);
+    }
+
+    .loading-spinner {
+        width: 50px;
+        height: 50px;
+        border: 5px solid #ffffff;
+        border-top: 5px solid transparent;
+        border-radius: 50%;
+        margin: 0 auto 20px;
+        animation: spin 1s linear infinite;
+    }
+
+    .loading-content p {
+        font-size: 24px;
+        font-weight: bold;
+        color: #ffffff;
+        margin: 0;
+        white-space: nowrap;
+    }
+
+    @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
     }
 
 </style>
