@@ -78,13 +78,23 @@
     }
   
     function handleRecommendedClick(name: string) {
-      sculptureText = name;
-      generateSculpture();
+      sculptureText = name; // 이름만 입력하고 자동 생성은 하지 않음
     }
   
     async function handleNextPage() {
-      navigate('/theme1_2');
+      // 현재 페이지에 슬라이드 아웃 효과 적용
+      document.querySelector('main')?.classList.add('page-slide-out');
+      
+      // 애니메이션이 완료된 후 페이지 전환
+      setTimeout(() => {
+        navigate('/theme1_2');
+      }, 500);
     }
+  
+    onMount(() => {
+      // 페이지 로드 시 슬라이드 인 효과 적용
+      document.querySelector('main')?.classList.add('page-slide-in');
+    });
   </script>
   
   <main>
@@ -98,7 +108,7 @@
         <div class="left-section">
             <!-- 텍스트 입력 칸 -->
             <div class="text-input-container">
-                <label for="sculpture-input">조각상 이름을 적어보세요</label>
+                <div class="input-title">조각상 이름을 적어보세요</div>
                 <div class="input-button-group">
                     <textarea 
                         id="sculpture-input"
@@ -120,7 +130,12 @@
                 <h3>추천 이름 목록</h3>
                 <ul>
                     {#each recommendedNames as name}
-                        <li on:click={() => handleRecommendedClick(name)}>{name}</li>
+                        <li 
+                            on:click={() => handleRecommendedClick(name)}
+                            class="recommended-item"
+                        >
+                            {name}
+                        </li>
                     {/each}
                 </ul>
             </div>
@@ -165,7 +180,7 @@
       width: 68%; /* 전체 너비에서 좌우 여백을 뺀 너비 */
       margin-left: 16%; /* 왼쪽 여백 */
       margin-right: 16%; /* 오른쪽 여백 */
-      background-color: rgba(128, 128, 128, 0.8);
+      background-color: var(--primary-color);
       padding: 20px;
       border: 2px solid #ddd;
       border-radius: 8px;
@@ -179,6 +194,14 @@
       font-weight: bold;
       color: #333;
       text-align: center;
+      
+    }
+
+    .input-title {
+      font-size: 16px;
+      font-weight: bold;
+      color: #333;
+      text-align: center;
     }
   
     /* 텍스트 입력 칸 스타일 */
@@ -187,6 +210,10 @@
       width: 100%;
       margin-top: 0;
       left: 0;
+      background-color: var(--primary-color-light);
+      border-radius: 8px;
+      padding: 10px;
+
     }
   
     .input-button-group {
@@ -198,7 +225,7 @@
   
     .text-input-container textarea {
       flex: 1;
-      min-height: 50px;
+      min-height: 30px;
       padding: 10px;
       font-size: 16px;
       border: 2px solid #ddd;
@@ -235,6 +262,9 @@
       left: 10%;
       position: relative;
       margin-top: 80px;
+      background-color: rgba(85, 146, 252, 0.1);
+      border-radius: 8px;
+      padding: 10px;
     }
   
     .recommended-names h3 {
@@ -258,11 +288,14 @@
       border: 1px solid #ddd;
       border-radius: 8px;
       background-color: #f9f9f9;
+      transition: all 0.2s ease;
     }
   
     .recommended-names li:hover {
-      background-color: #e6f7ff; /* 마우스 오버 시 색상 */
+      background-color: #e6f7ff;
       cursor: pointer;
+      transform: translateY(-2px);
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     }
   
     /* 전체 진행 바 스타일 */
@@ -368,7 +401,7 @@
     .next-button {
         width: 80%;
         padding: 16px 28px;
-        background-color: #4077d6;
+        background-color: var(--primary-color);
         color: white;
         border: none;
         border-radius: 12px;

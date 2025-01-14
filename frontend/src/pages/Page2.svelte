@@ -26,6 +26,12 @@
         if (!selectedArtist || !canvasRef) return;
 
         resultImage = canvasRef.toDataURL('image/png');
+        setTimeout(() => {
+            const resultContainer = document.querySelector('.result-container');
+            if (resultContainer) {
+                resultContainer.scrollIntoView({ behavior: 'smooth' });
+            }
+        }, 100);
     }
 
     onMount(() => {
@@ -49,75 +55,78 @@
 </script>
 
 <main>
-    <div class="section-divider"></div>
-    
-    <section class="description-section">
-        <h1>화가의 화풍으로 변신하기</h1>
-        <div class="artist-images">
-            {#each artists as artist, i}
-                <img src={artist.image} alt={artist.name} class="artist-title-image" style="animation-delay: {i * 1}s;"/>
-            {/each}
-        </div>
-    </section>
-
-    <div class="section-divider"></div>
-
-    {#if showScrollButton}
-        <div class="scroll-button">
-            <button class="next-button" on:click={scrollToBottom}>
-                다음 단계로
-                <span class="arrow">→</span>
-            </button>
-        </div>
-    {/if}
-
-    <section class="function-section">
-        <div class="help-text">
-            그림을 그린 후, 원하는 화가의 화풍으로 변환해드립니다
-        </div>
-        
-        <div class="canvas-container">
-            <Canvas bind:canvasRef={canvasRef} />
+    <div class="scroll-container">
+        <div class="scroll-section">
+            <div class="section-divider"></div>
+            <section class="description-section">
+                <h1>화가의 화풍으로 변신하기</h1>
+                <div class="artist-images">
+                    {#each artists as artist, i}
+                        <img src={artist.image} alt={artist.name} class="artist-title-image" style="animation-delay: {i * 1}s;"/>
+                    {/each}
+                </div>
+                <div class="scroll-guide">
+                    <span class="scroll-text">아래로 스크롤하세요</span>
+                    <span class="scroll-arrow">↓</span>
+                </div>
+            </section>
         </div>
 
-        <div class="artist-grid">
-            {#each artists as artist}
-                <div 
-                    class="artist-card" 
-                    class:selected={selectedArtist === artist.id}
-                    on:click={() => selectedArtist = artist.id}
-                    on:keypress={() => selectedArtist = artist.id}
-                    role="button"
-                    tabindex="0"
-                >
-                    <img src={artist.image} alt={artist.name} class="artist-image"/>
-                    <div class="artist-info">
-                        <h3>{artist.name}</h3>
-                        <p>{artist.style}</p>
+        <div class="scroll-section">
+            <section class="function-section">
+                <div class="help-text">
+                    그림을 그린 후, 원하는 화가의 화풍으로 변환해드립니다
+                </div>
+                
+                <div class="content-layout">
+                    <div class="left-panel">
+                        <div class="artist-grid">
+                            {#each artists as artist}
+                                <div 
+                                    class="artist-card" 
+                                    class:selected={selectedArtist === artist.id}
+                                    on:click={() => selectedArtist = artist.id}
+                                    on:keypress={() => selectedArtist = artist.id}
+                                    role="button"
+                                    tabindex="0"
+                                >
+                                    <img src={artist.image} alt={artist.name} class="artist-image"/>
+                                    <div class="artist-info">
+                                        <h3>{artist.name}</h3>
+                                        <p>{artist.style}</p>
+                                    </div>
+                                </div>
+                            {/each}
+                        </div>
+                    </div>
+                    
+                    <div class="right-panel">
+                        <div class="canvas-container">
+                            <Canvas bind:canvasRef={canvasRef} />
+                        </div>
+                        <button 
+                            class="transform-button" 
+                            disabled={!selectedArtist} 
+                            on:click={handleTransform}
+                        >
+                            화풍 변환하기
+                        </button>
                     </div>
                 </div>
-            {/each}
+
+                {#if resultImage}
+                    <div class="result-container">
+                        <h2>변환 결과</h2>
+                        <img src={resultImage} alt="변환된 이미지" />
+                        <button class="page-button" on:click={() => navigate('/theme3')}>
+                            다음 단계로
+                            <span class="arrow">→</span>
+                        </button>
+                    </div>
+                {/if}
+            </section>
         </div>
-
-        <button 
-            class="transform-button" 
-            disabled={!selectedArtist} 
-            on:click={handleTransform}
-        >
-            화풍 변환하기
-        </button>
-
-        {#if resultImage}
-            <div class="result-container">
-                <h2>변환 결과</h2>
-                <img src={resultImage} alt="변환된 이미지" />
-                <button class="page-button" on:click={() => navigate('/theme3')}>
-                    다음 단계로
-                    <span class="arrow">→</span>
-                </button>
-            </div>
-        {/if}
-    </section>
+    </div>
 
     <div class="progress-bar">
         <div class="progress" style={`width: ${progress}%;`}></div>
@@ -155,25 +164,23 @@
 
     .description-section {
         height: 100vh;
+        position: relative;
         display: flex;
         flex-direction: column;
-        justify-content: center;
         align-items: center;
-        position: relative;
-        padding: 0;
-        margin: 0;
+        justify-content: center;
     }
 
     h1 {
         font-size: 64px;
-        color: #CCCCCC;
+        color: rgb(0, 0, 0);
         text-align: center;
         margin-bottom: 40px;
     }
 
     .help-text {
         font-size: 32px;
-        color: #CCCCCC;
+        color: #000000;
         text-align: center;
         font-weight: 600;
         padding: 20px;
@@ -181,20 +188,20 @@
     }
 
     .artist-grid {
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
-        gap: 30px;
-        max-width: 1000px;
-        margin: 40px auto;
-        padding: 0 20px;
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+        width: 100%;
     }
 
     .artist-card {
+        width: calc(100% - 10px);
+        margin: 0 auto;
+        padding: 30px;
         display: flex;
         align-items: center;
-        gap: 20px;
-        background: rgba(255, 255, 255, 0.05);
-        padding: 20px;
+        gap: 15px;
+        background: var(--primary-color-light);
         border: 2px solid #333;
         border-radius: 12px;
         cursor: pointer;
@@ -202,18 +209,18 @@
     }
 
     .artist-card:hover {
-        background: rgba(255, 107, 26, 0.1);
+        background: var(--primary-color-dark);
         transform: translateY(-2px);
     }
 
     .artist-card.selected {
-        background: rgba(255, 107, 26, 0.2);
-        border-color: #FF6B1A;
+        background: var(--primary-color);
+        border-color: black;
     }
 
     .artist-image {
-        width: 120px;
-        height: 120px;
+        width: 80px;
+        height: 80px;
         object-fit: cover;
         border-radius: 8px;
     }
@@ -223,33 +230,32 @@
     }
 
     .artist-card h3 {
-        font-size: 24px;
-        color: #FF6B1A;
+        font-size: 20px;
+        color: #000000;
         margin: 0 0 10px 0;
     }
 
     .artist-card p {
-        font-size: 18px;
-        color: #CCCCCC;
+        font-size: 16px;
+        color: #000000;
         margin: 0;
     }
 
     .canvas-container {
-        width: 100%;
-        max-width: 800px;
-        margin: 40px auto;
+        width: 80%;
+        margin: 0 auto;
         background: white;
         border-radius: 12px;
         overflow: hidden;
     }
 
     .transform-button {
-        display: block;
-        margin: 40px auto;
-        padding: 15px 40px;
+        width: 80%;
+        margin: 0 auto;
+        padding: 15px 30px;
         font-size: 20px;
-        background: #FF6B1A;
-        color: white;
+        background: var(--primary-color-dark);
+        color: black;
         border: none;
         border-radius: 8px;
         cursor: pointer;
@@ -262,14 +268,15 @@
     }
 
     .transform-button:hover:not(:disabled) {
-        background: #ff8142;
+        background: var(--primary-color);
         transform: translateY(-2px);
     }
 
     .result-container {
         max-width: 800px;
-        margin: 40px auto;
+        margin: 40px auto 80px;
         text-align: center;
+        scroll-margin-top: 100px;
     }
 
     .result-container h2 {
@@ -354,26 +361,40 @@
         border-right: none;
     }
 
-    .scroll-button {
-        position: fixed;
+    .scroll-guide {
+        position: absolute;
         bottom: 40px;
-        right: 40px;
-        z-index: 1000;
+        left: 47%;
+        transform: translateX(-50%);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 12px;
+        color: #CCCCCC;
+        animation: bounce 2s infinite;
     }
 
-    .next-button {
-        padding: 16px 28px;
-        background-color: #4077d6;
-        color: white;
-        border: none;
-        border-radius: 12px;
+    .scroll-text {
         font-size: 18px;
+        font-weight: 500;
+        opacity: 0.9;
+    }
+
+    .scroll-arrow {
+        font-size: 24px;
         font-weight: bold;
-        cursor: pointer;
-        transition: all 0.2s ease;
-        display: flex;
-        align-items: center;
-        gap: 8px;
+    }
+
+    @keyframes bounce {
+        0%, 20%, 50%, 80%, 100% {
+            transform: translateY(0);
+        }
+        40% {
+            transform: translateY(-10px);
+        }
+        60% {
+            transform: translateY(-5px);
+        }
     }
 
     .page-button {
@@ -394,7 +415,6 @@
         gap: 8px;
     }
 
-    .next-button:hover,
     .page-button:hover {
         background-color: #3567c0;
         transform: translateY(-2px);
@@ -410,5 +430,53 @@
     .next-button:hover .arrow,
     .page-button:hover .arrow {
         transform: translateX(4px);
+    }
+
+    .scroll-container {
+        height: 100vh;
+        overflow-y: scroll;
+        scroll-snap-type: y mandatory;
+        scroll-snap-stop: always;
+    }
+
+    .scroll-section {
+        height: 100vh;
+        scroll-snap-align: start;
+        position: relative;
+        overflow-y: auto;
+    }
+
+    .function-section {
+        min-height: 100vh;
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 80px 0;
+        box-sizing: border-box;
+        overflow-y: visible;
+    }
+
+    .content-layout {
+        display: flex;
+        width: 90%;
+        max-width: 1600px;
+        margin: 20px auto;
+        gap: 40px;
+    }
+
+    .left-panel, .right-panel {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .left-panel {
+        flex: 3;  /* 30% */
+        min-width: 300px;
+    }
+
+    .right-panel {
+        flex: 7;  /* 70% */
     }
 </style>

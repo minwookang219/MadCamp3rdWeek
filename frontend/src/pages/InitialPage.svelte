@@ -12,8 +12,8 @@
           showTransformed = true;
           setTimeout(() => {
             showFinalText = true;
-          }, 2000);
-        }, 1000);   
+          }, 3000);
+        }, 2000);   
       }
     }
   
@@ -112,7 +112,10 @@
     align-items: center;
     background: white;
     border-radius: 10px;
-    padding: 10px;
+    padding-top: 15px;
+    padding-bottom: 10px;
+    padding-left: 5px;
+    padding-right: 5px;
 
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     width: 500px;
@@ -123,7 +126,7 @@
   .logo-container:has(.logo-grid.transform-active) {
     height: 280px;
     width: 550px;
-    transition: all 1.0s ease;
+    transition: all 2.0s ease;
   }
   
   .logo-grid {
@@ -133,7 +136,7 @@
     width: 100%;
     height: 100%;
     position: relative;
-    transition: all 1.5s ease;
+    transition: all 2.5s ease;
     padding: 20px;
   }
   
@@ -143,7 +146,7 @@
   
   .fade-item {
     opacity: 1;
-    transition: opacity 0.5s ease;
+    transition: opacity 4s ease;
   }
   
   .transform-active .fade-item {
@@ -153,7 +156,7 @@
   .slide-in {
     opacity: 0;
     transform: translateX(-20px);
-    animation: slideIn 1.5s ease forwards;
+    animation: slideIn 3.5s ease forwards;
     font-size: 160px;
   }
   
@@ -177,7 +180,7 @@
     font-size: 160px;
     font-weight: bold;
     border-radius: 10px;
-    transition: all 0.3s ease;
+    transition: all 5.3s ease;
     width: calc(50% - 5px);
     aspect-ratio: 1;
   }
@@ -241,7 +244,7 @@
     left: 50%;
     transform: translateX(-50%);
     opacity: 0;
-    animation: fadeIn 1.5s ease 0.5s forwards;
+    animation: fadeIn 1.5s ease 1.5s forwards;
   }
   
   .description-line {
@@ -295,22 +298,22 @@
   
   .click-guide {
     position: absolute;
-    top: calc(50% + 280px);
+    top: calc(60% + 250px);
     left: 50%;
     transform: translateX(-50%);
     color: white;
-    font-size: 40px;
+    font-size: 30px;
     opacity: 0;
     animation: fadeIn 1s ease 1s forwards;
   }
 
   .initial_lefttop {
     position: absolute;
-    top: 80px;
+    top: 180px;
     left: 50%;
     transform: translateX(-50%);
     color: white;
-    font-size: 18px;
+    font-size: 25px;
     opacity: 0;
     animation: fadeIn 1s ease 1s forwards;
   }

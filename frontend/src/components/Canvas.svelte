@@ -40,7 +40,7 @@
 
         if (isEraserMode) {
             ctx.strokeStyle = 'white';
-            ctx.lineWidth = 40;
+            ctx.lineWidth = 10;
         } else {
             ctx.strokeStyle = selectedColor;
             ctx.lineWidth = 5;
@@ -56,16 +56,19 @@
 
     function getPosition(e: MouseEvent | TouchEvent) {
         const rect = canvasRef.getBoundingClientRect();
+        const scaleX = canvasRef.width / rect.width;
+        const scaleY = canvasRef.height / rect.height;
+
         if (e instanceof MouseEvent) {
             return {
-                x: e.clientX - rect.left,
-                y: e.clientY - rect.top,
+                x: (e.clientX - rect.left) * scaleX,
+                y: (e.clientY - rect.top) * scaleY,
             };
         } else {
             const touch = e.touches[0];
             return {
-                x: touch.clientX - rect.left,
-                y: touch.clientY - rect.top,
+                x: (touch.clientX - rect.left) * scaleX,
+                y: (touch.clientY - rect.top) * scaleY,
             };
         }
     }
@@ -90,6 +93,7 @@
         bind:this={canvasRef}
         width="800"
         height="600"
+        style="width: 100%; height: 100%;"
         on:mousedown={startDrawing}
         on:mousemove={draw}
         on:mouseup={stopDrawing}

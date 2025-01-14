@@ -3,6 +3,8 @@
 <script lang="ts">
     import { onMount } from 'svelte';
     import { navigate } from 'svelte-routing';
+    import CharacterImage from '../assets/image_character.jpg';
+    import BackgroundImage from '../assets/image_background.jpg';
     
     let progress = 100; // 마지막 단계
     let userName = '';
@@ -10,8 +12,6 @@
     let phoneNumber = '';
     let showDateInput = false;
     let visitDate = '';
-    let theme1Image = ''; // theme1의 최종 이미지
-    let theme2Image = ''; // theme2의 최종 이미지
     let isFormCompleted = false;
 
     function handleNameSubmit() {
@@ -23,11 +23,7 @@
     }
 
     function handlePhoneSubmit() {
-        if (!phoneNumber.match(/^\d{3}-\d{4}-\d{4}$/)) {
-            alert('올바른 전화번호를 입력해주세요.');
-        } else {
-            showDateInput = true;
-        }
+        showDateInput = true;
     }
 
     function handleDateSubmit() {
@@ -51,7 +47,7 @@
 
     function handlePhoneInput(event: Event) {
         const input = event.target as HTMLInputElement;
-        input.value = formatPhoneNumber(input.value);
+        input.value = formatPhoneNumber(input.value);ㄹ
         phoneNumber = input.value;
     }
 
@@ -70,49 +66,54 @@
         <div class="left-section">
             <div class="input-group">
                 <label for="name">이름을 입력해주세요</label>
-                <input 
-                    type="text" 
-                    id="name" 
-                    bind:value={userName}
-                    placeholder="이름"
-                    required
-                />
-                <button class="submit-button" on:click={handleNameSubmit}>
-                    확인
-                </button>
+                <div class="input-button-wrapper">
+                    <input 
+                        type="text" 
+                        id="name" 
+                        bind:value={userName}
+                        placeholder="이름"
+                        required
+                    />
+                    <button class="submit-button" on:click={handleNameSubmit}>
+                        확인
+                    </button>
+                </div>
             </div>
 
             {#if showPhoneInput}
                 <div class="input-group">
                     <label for="phone">전화번호를 입력해주세요</label>
-                    <input 
-                        type="tel" 
-                        id="phone" 
-                        value={phoneNumber}
-                        on:input={handlePhoneInput}
-                        placeholder="010-0000-0000"
-                        pattern="[0-9]{3}-[0-9]{4}-[0-9]{4}"
-                        required
-                    />
-                    <button class="submit-button" on:click={handlePhoneSubmit}>
-                        확인
-                    </button>
+                    <div class="input-button-wrapper">
+                        <input 
+                            type="tel" 
+                            id="phone" 
+                            value={phoneNumber}
+                            on:input={handlePhoneInput}
+                            placeholder="010-0000-0000"
+                            required
+                        />
+                        <button class="submit-button" on:click={handlePhoneSubmit}>
+                            확인
+                        </button>
+                    </div>
                 </div>
             {/if}
 
             {#if showDateInput}
                 <div class="input-group">
                     <label for="date">방문일자를 선택해주세요</label>
-                    <input 
-                        type="date" 
-                        id="date" 
-                        bind:value={visitDate}
-                        min={new Date().toISOString().split('T')[0]}
-                        required
-                    />
-                    <button class="submit-button" on:click={handleDateSubmit}>
-                        확인
-                    </button>
+                    <div class="input-button-wrapper">
+                        <input 
+                            type="date" 
+                            id="date" 
+                            bind:value={visitDate}
+                            min={new Date().toISOString().split('T')[0]}
+                            required
+                        />
+                        <button class="submit-button" on:click={handleDateSubmit}>
+                            확인
+                        </button>
+                    </div>
                 </div>
             {/if}
         </div>
@@ -124,11 +125,11 @@
                 <div class="images-grid">
                     <div class="image-item">
                         <h3>조각상 작품</h3>
-                        <img src={theme1Image} alt="조각상" />
+                        <img src={CharacterImage} alt="조각상" />
                     </div>
                     <div class="image-item">
                         <h3>그림 작품</h3>
-                        <img src={theme2Image} alt="그림" />
+                        <img src={BackgroundImage} alt="그림" />
                     </div>
                 </div>
             </div>
@@ -162,9 +163,8 @@
         width: 68%;
         margin-left: 16%;
         margin-right: 16%;
-        background-color: rgba(128, 128, 128, 0.8);
+        background-color: var(--primary-color-dark);
         padding: 20px;
-        border: 2px solid #ddd;
         border-radius: 8px;
         box-shadow: 0 2px 6px rgba(5, 4, 4, 0.1);
         z-index: 1000;
@@ -182,30 +182,41 @@
         justify-content: space-between;
         width: 68%;
         margin: 64px 16% 0 16%;
-        gap: 40px;
+        gap: 64px;
     }
 
-    .left-section, .right-section {
+    .left-section {
+        flex: 3;
         width: 100%;
-        background: rgba(255, 255, 255, 0.1);
+        background: var(--primary-color-light);
+        padding: 32px;
+        border-radius: 12px;
+    }
+
+    .right-section {
+        flex: 7;
+        width: 100%;
+        background: var(--primary-color-light);
         padding: 32px;
         border-radius: 12px;
     }
 
     .input-group {
         margin-bottom: 24px;
+        width: 100%;
     }
 
     label {
         display: block;
-        color: #CCCCCC;
+        color: #000000;
         margin-bottom: 12px;
         font-size: 20px;
         text-align: center;
+        width: 100%;
     }
 
     input {
-        width: 100%;
+        width: 60%;
         padding: 16px;
         border: 2px solid #333;
         border-radius: 8px;
@@ -230,7 +241,7 @@
     }
 
     input:focus {
-        border-color: #FF6B1A;
+        border-color: var(--primary-color);
         outline: none;
     }
 
@@ -286,9 +297,9 @@
     }
 
     .submit-button {
-        width: 100%;
-        padding: 16px;
-        background: #FF6B1A;
+        width: 100px;
+        padding: 16px 0;
+        background: var(--primary-color);
         color: white;
         border: none;
         border-radius: 8px;
@@ -296,10 +307,14 @@
         font-weight: bold;
         cursor: pointer;
         transition: all 0.3s ease;
+        height: 56px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
 
     .submit-button:hover {
-        background: #ff8142;
+        background: var(--primary-color-dark);
         transform: translateY(-2px);
     }
 
@@ -319,36 +334,43 @@
     .images-container {
         margin-top: 32px;
         text-align: center;
+        width: 100%;
     }
 
     .images-container h2 {
-        color: #CCCCCC;
+        color: #000000;
         font-size: 24px;
-        margin-bottom: 24px;
+        margin-bottom: 32px;
     }
 
     .images-grid {
         display: grid;
-        grid-template-columns: 1fr;
+        grid-template-columns: 1fr 1fr;
         gap: 24px;
         margin-top: 16px;
+        align-items: center;
     }
 
     .image-item {
         text-align: center;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
     }
 
     .image-item h3 {
-        color: #CCCCCC;
+        color: #000000;
         font-size: 18px;
-        margin-bottom: 12px;
+        margin-bottom: 20px;
     }
 
     .image-item img {
-        width: 100%;
+        width: 80%;
         height: auto;
         border-radius: 8px;
         box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        object-fit: contain;
     }
 
     .ticket-button-container {
@@ -358,7 +380,7 @@
 
     .ticket-button {
         padding: 20px 40px;
-        background: #FF6B1A;
+        background: var(--primary-color);
         color: white;
         border: none;
         border-radius: 12px;
@@ -373,9 +395,9 @@
     }
 
     .ticket-button:hover {
-        background: #ff8142;
+        background: var(--primary-color-dark);
         transform: translateY(-2px);
-        box-shadow: 0 4px 12px rgba(255, 107, 26, 0.3);
+        box-shadow: 0 4px 12px rgba(85, 146, 252, 0.3);
     }
 
     .ticket-button .arrow {
@@ -385,5 +407,12 @@
 
     .ticket-button:hover .arrow {
         transform: translateX(4px);
+    }
+
+    .input-button-wrapper {
+        display: flex;
+        gap: 12px;
+        justify-content: flex-start;
+        width: 100%;
     }
 </style>

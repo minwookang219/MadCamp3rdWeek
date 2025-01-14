@@ -303,8 +303,8 @@
     }
 
     .slider img {
-        width: 300px;
-        height: 400px;
+        width: 240px;
+        height: 320px;
         object-fit: cover;
         border-radius: 10px;
         flex-shrink: 0;

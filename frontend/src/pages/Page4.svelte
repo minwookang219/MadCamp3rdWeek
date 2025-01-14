@@ -1,6 +1,7 @@
 <script lang="ts">
     import { onMount } from 'svelte';
     import html2canvas from 'html2canvas';
+    import { navigate } from 'svelte-routing';
     import backgroundImage from '../assets/image_background.jpg';
     import characterImage from '../assets/image_character.jpg';
     
@@ -39,6 +40,10 @@
         month: '2-digit',
         day: '2-digit'
     }).replace(/\. /g, '.').replace('.', '.');
+
+    function goToHome() {
+        navigate('/');
+    }
 
     onMount(() => {
         window.scrollTo(0, 0);
@@ -100,10 +105,18 @@
                     </div>
                 </div>
             </div>
-            <div class="save-button-container">
+            <div class="discount-info">
+                <span class="discount-icon">💡</span>
+                위 티켓을 매표소 직원에게 보여주시면 30% 할인을 해드립니다
+            </div>
+            <div class="button-container">
                 <button class="save-button" on:click={saveTicket}>
                     저장하기
                     <span class="save-icon">💾</span>
+                </button>
+                <button class="home-button" on:click={goToHome}>
+                    홈으로 돌아가기
+                    <span class="home-icon">🏠</span>
                 </button>
             </div>
         </div>
@@ -138,7 +151,7 @@
     .loading-spinner {
         width: 50px;
         height: 50px;
-        border: 5px solid #FF6B1A;
+        border: 5px solid var(--primary-color);
         border-top: 5px solid transparent;
         border-radius: 50%;
         margin: 0 auto 20px;
@@ -148,7 +161,7 @@
     .loading-content p {
         font-size: 24px;
         font-weight: bold;
-        color: #FF6B1A;
+        color: var(--primary-color);
     }
     
     .loading-spinner.hide {
@@ -343,16 +356,18 @@
         padding: 0;
     }
 
-    .save-button-container {
+    .button-container {
         position: fixed;
         bottom: 100px;
         right: 100px;
         z-index: 10;
+        display: flex;
+        gap: 16px;
     }
     
     .save-button {
         padding: 12px 24px;
-        background: #FF6B1A;
+        background: var(--primary-color);
         backdrop-filter: blur(5px);
         border: none;
         border-radius: 8px;
@@ -368,12 +383,40 @@
     }
     
     .save-button:hover {
-        background: #ff8142;
+        background: var(--primary-color-dark);
         transform: translateY(-2px);
-        box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
+        box-shadow: 0 6px 16px rgba(85, 146, 252, 0.3);
     }
     
     .save-icon {
+        font-size: 20px;
+    }
+
+    .home-button {
+        padding: 12px 24px;
+        background: var(--primary-color-light);
+        backdrop-filter: blur(5px);
+        border: none;
+        border-radius: 8px;
+        color: black;
+        font-size: 16px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    }
+
+    .home-button:hover {
+        background: var(--primary-color);
+        color: white;
+        transform: translateY(-2px);
+        box-shadow: 0 6px 16px rgba(85, 146, 252, 0.3);
+    }
+
+    .home-icon {
         font-size: 20px;
     }
 
@@ -381,6 +424,25 @@
         position: relative;
         width: 100%;
         max-width: 600px;
-        margin-bottom: 80px;
+        margin-bottom: 40px;
+    }
+
+    .discount-info {
+        text-align: center;
+        color: var(--primary-color);
+        font-size: 18px;
+        font-weight: 500;
+        margin-top: 24px;
+        padding: 16px;
+        background: rgba(85, 146, 252, 0.1);
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 12px;
+    }
+
+    .discount-icon {
+        font-size: 24px;
     }
 </style>

@@ -100,11 +100,11 @@
   /* 제목을 감싸는 컨테이너 */
   .title-container {
     position: relative;
-    margin-top: 98px;
-    width: 68%; /* 전체 너비에서 좌우 여백을 뺀 너비 */
-    margin-left: 16%; /* 왼쪽 여백 */
-    margin-right: 16%; /* 오른쪽 여백 */
-    background-color: rgba(128, 128, 128, 0.8);
+    margin-top: 70px;
+    width: 68%;
+    margin-left: 16%;
+    margin-right: 16%;
+    background-color: var(--primary-color);
     padding: 20px;
     border: 2px solid #ddd;
     border-radius: 8px;
@@ -150,7 +150,7 @@
   .generate-button {
     padding: 10px 20px;
     height: 50px;
-    background-color: #5592fc;
+    background-color: var(--primary-color);
     color: white;
     border: none;
     border-radius: 8px;
@@ -260,8 +260,9 @@
       display: flex;
       justify-content: space-between;
       width: 68%;
-      margin: 64px 16% 0 16%;
+      margin: 30px 16% 0 16%;
       gap: 40px;
+      flex: 1;
   }
 
   .left-section {
@@ -269,7 +270,7 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 24px;
+      gap: 20px;
   }
 
   .right-section {
@@ -278,7 +279,7 @@
       flex-direction: column;
       justify-content: space-between;
       align-items: center;
-      gap: 24px;
+      gap: 20px;
   }
 
   .sculpture-preview {
@@ -360,20 +361,18 @@
     font-size: 20px;
     font-weight: bold;
     color: #333;
-    margin-bottom: 16px;
+    margin-bottom: 10px;
     text-align: center;
   }
 
   .image-preview {
     width: 100%;
-    aspect-ratio: 1;
+    aspect-ratio: 1.2;
     background-color: #f5f5f5;
     border: 2px solid #ddd;
     border-radius: 8px;
     overflow: hidden;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    max-height: calc(70vh - 200px);
   }
 
   .image-preview img {
@@ -399,5 +398,13 @@
     background-color: #4077d6;
     transform: translateY(-2px);
     box-shadow: 0 4px 12px rgba(64, 119, 214, 0.3);
+  }
+
+  main {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      padding: 60px 0;
+      box-sizing: border-box;
   }
 </style>
