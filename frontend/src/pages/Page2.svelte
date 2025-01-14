@@ -24,16 +24,76 @@
     let showScrollButton = true;
     
     async function handleTransform() {
-        if (!selectedArtist || !canvasRef) return;
-
-        resultImage = canvasRef.toDataURL('image/png');
-        setTimeout(() => {
-            const resultContainer = document.querySelector('.result-container');
-            if (resultContainer) {
-                resultContainer.scrollIntoView({ behavior: 'smooth' });
-            }
-        }, 100);
+    if (!selectedArtist || !canvasRef) {
+        alert('화가와 그림을 모두 선택해주세요');
+        return;
     }
+
+    try {
+        // Canvas의 이미지를 Blob으로 변환
+        const contentBlob = await new Promise<Blob | null>(resolve => {
+            canvasRef.toBlob(resolve, 'drawing.jpg');
+        });
+
+        console.log('Blob:', contentBlob);
+
+        if (!contentBlob) {
+            alert('그림을 캔버스에서 가져올 수 없습니다.');
+            return;
+        }
+
+        // 선택된 화가의 대표 이미지 가져오기
+        const artist = artists.find(a => a.id === selectedArtist);
+        if (!artist) {
+            alert('선택한 화가 정보를 찾을 수 없습니다.');
+            return;
+        }
+
+        // 화풍 대표 이미지를 Fetch로 가져오기
+        const styleResponse = await fetch(artist.image);
+        if (!styleResponse.ok) {
+            throw new Error('화풍 이미지를 가져오는 데 실패했습니다.');
+        }
+        const styleBlob = await styleResponse.blob();
+
+        // FormData 생성
+        const formData = new FormData();
+        formData.append('content', contentBlob, 'drawing.jpg'); // 사용자 그림
+
+        console.log('FormData entries:', Array.from(formData.entries()));
+
+        formData.append('style', styleBlob, `${artist.id}.jpg`); // 선택한 화풍
+
+        
+        console.log('FormData entries:', Array.from(formData.entries()));
+        // HTTP POST 요청으로 서버에 데이터 전송
+        const response = await fetch('http://127.0.0.1:8002/transform2', {
+            method: 'POST',
+            body: formData,
+        });
+
+        if (!response.ok) {
+            throw new Error('이미지 처리 중 오류가 발생했습니다');
+        }
+
+        // 결과 이미지를 URL로 변환
+        const resultBlob = await response.blob();
+        resultImage = URL.createObjectURL(resultBlob);
+
+        // 결과 영역으로 스크롤
+        const resultContainer = document.querySelector('.result-container');
+        if (resultContainer) {
+            resultContainer.scrollIntoView({ behavior: 'smooth' });
+        }
+    } catch (error) {
+        console.error('Error:', error);
+        const errorMessage = error instanceof Error ? error.message : '알 수 없는 오류가 발생했습니다';
+        alert('이미지 처리 중 오류가 발생했습니다: ' + errorMessage);
+    }
+}
+
+
+
 
     onMount(() => {
         window.scrollTo(0, 0);
