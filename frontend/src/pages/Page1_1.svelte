@@ -2,6 +2,7 @@
     import { onMount } from 'svelte';
     import { navigate } from 'svelte-routing';
     import logoImage from '../assets/logo_images.png';
+    import { characterImageStore } from '../store';
     // 진행률 (0~100 사이의 값)
     let progress = 33.33333333; // 예: 현재 진행률 50%
     let sculptureText = ''; // 사용자가 입력한 텍스트를 저장
@@ -10,11 +11,11 @@
   
     // 추천 이름 목록
     let recommendedNames: string[] = [
-      '슈퍼마리오의 쿠파',
-      '평화의 상징',
-      '아이폰15',
-      '뚝배기 불고기',
-      '자유의 여신상'
+      'Edison',
+      'Steak',
+      'Einstein',
+      'Newton',
+      'Banana'
     ];
   
     console.log('Full env:', import.meta.env);
@@ -24,55 +25,33 @@
       
       isLoading = true;
       try {
-        console.log('Sending request with prompt:', sculptureText);
-        
-        let retries = 0;
-        const maxRetries = 3;
-        
-        while (retries < maxRetries) {
-          const response = await fetch('https://api-inference.huggingface.co/models/CompVis/stable-diffusion-v1-1', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-              'Authorization': `Bearer ${HUGGING_FACE_API_KEY}`,
-            },
-            body: JSON.stringify({
-              inputs: `A simple marble sculpture of ${sculptureText}, white marble texture, simple lighting`,
-            }),
-          });
-    
-          if (!response.ok) {
-            const errorData = await response.text();
-            console.error('Response not OK:', response.status, errorData);
-            
-            // 모델 로딩 중인 경우
-            if (response.status === 503) {
-              const errorJson = JSON.parse(errorData);
-              const waitTime = Math.ceil(errorJson.estimated_time || 20);
-              console.log(`Waiting ${waitTime} seconds for model to load...`);
-              await new Promise(resolve => setTimeout(resolve, waitTime * 1000));
-              retries++;
-              continue;
-            }
-            
-            throw new Error('이미지 생성에 실패했습니다');
-          }
-    
-          const blob = await response.blob();
-          sculptureImage = URL.createObjectURL(blob);
-          break;
-        }
-        
-        if (retries >= maxRetries) {
-          throw new Error('모델 로딩 시간이 너무 오래 걸립니다. 나중에 다시 시도해주세요.');
-        }
-      } catch (error: any) {
-        console.error('Error details:', {
-          message: error.message,
-          stack: error.stack,
-          error
+        const response = await fetch('http://127.0.0.1:8002/generate', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            prompt: `A detailed marble sculpture of ${sculptureText} with no background, ${sculptureText} is a character, color is white`
+          })
         });
-        alert('이미지 생성 중 오류가 발생했습니다');
+    
+        if (!response.ok) {
+          throw new Error('조각상 생성에 실패했습니다');
+        }
+    
+        const data = await response.json();
+        
+        // Base64 이미지를 URL로 변환
+        if (data.images && data.images.length > 0) {
+          sculptureImage = `data:image/jpeg;base64,${data.images[0]}`;
+          characterImageStore.set(sculptureImage); // store에 이미지 저장
+        } else {
+          throw new Error('이미지 생성 결과가 없습니다');
+        }
+      } catch (error) {
+        console.error('Error:', error);
+        const errorMessage = error instanceof Error ? error.message : '알 수 없는 오류가 발생했습니다';
+        alert('조각상 생성 중 오류가 발생했습니다: ' + errorMessage);
       } finally {
         isLoading = false;
       }
@@ -88,7 +67,7 @@
       
       // 애니메이션이 완료된 후 페이지 전환
       setTimeout(() => {
-        navigate('/theme1_2');
+        navigate('/theme2');
       }, 500);
     }
   

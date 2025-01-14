@@ -3,10 +3,9 @@
 <script lang="ts">
     import { onMount } from 'svelte';
     import { navigate } from 'svelte-routing';
-    import CharacterImage from '../assets/image_character.jpg';
-    import BackgroundImage from '../assets/image_background.jpg';
     import logoImage from '../assets/logo_images.png';
-
+    import { resultImageStore, characterImageStore } from '../store';
+    import { get } from 'svelte/store';
     let progress = 100; // 마지막 단계
     let userName = '';
     let showPhoneInput = false;
@@ -14,6 +13,14 @@
     let showDateInput = false;
     let visitDate = '';
     let isFormCompleted = false;
+    let BackgroundImage: string | null = null;
+    let CharacterImage: string | null = null;
+
+    onMount(() => {
+        BackgroundImage = get(resultImageStore);
+        CharacterImage = get(characterImageStore);
+        window.scrollTo(0, 0);
+    });
 
     function handleNameSubmit() {
         if (userName.trim()) {
@@ -48,7 +55,7 @@
 
     function handlePhoneInput(event: Event) {
         const input = event.target as HTMLInputElement;
-        input.value = formatPhoneNumber(input.value);ㄹ
+        input.value = formatPhoneNumber(input.value);
         phoneNumber = input.value;
     }
 
@@ -102,7 +109,7 @@
 
             {#if showDateInput}
                 <div class="input-group">
-                    <label for="date">방문일자를 선택해주세요</label>
+                    <label for="date">방문일을 선택해주세요</label>
                     <div class="input-button-wrapper">
                         <input 
                             type="date" 
@@ -129,7 +136,7 @@
                         <img src={CharacterImage} alt="조각상" />
                     </div>
                     <div class="image-item">
-                        <h3>그림 작품</h3>
+                        <h3>배경</h3>
                         <img src={BackgroundImage} alt="그림" />
                     </div>
                 </div>
