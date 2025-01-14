@@ -2,10 +2,10 @@
     import { onMount } from 'svelte';
     import html2canvas from 'html2canvas';
     import { navigate } from 'svelte-routing';
-    import backgroundImage from '../assets/image_background.jpg';
     import characterImage from '../assets/image_character.jpg';
     import logoImage from '../assets/logo_images.png';
-    
+    import { resultImageStore } from '../store';
+    import { get } from 'svelte/store';
     let userName = '';
     let theme1Image = '';
     let theme2Image = '';
@@ -16,6 +16,12 @@
     let ticketRef: HTMLDivElement;
     let ticketNumber = Math.floor(Math.random() * 90000) + 10000;
     
+    let BackgroundImage: string | null = null;
+    
+    onMount(() => {
+        BackgroundImage = get(resultImageStore);
+        window.scrollTo(0, 0);
+    });
     async function saveTicket() {
         if (!ticketRef) return;
         
@@ -76,7 +82,7 @@
         {#if showTicket}
         <div class="ticket-wrapper">
             <div class="ticket" bind:this={ticketRef}>
-                <div class="ticket-background" style="background-image: url({backgroundImage})">
+                <div class="ticket-background" style="background-image: url({BackgroundImage})">
                     <div class="character-image">
                         <img src={characterImage} alt="Character" />
                     </div>

@@ -4,9 +4,9 @@
     import { onMount } from 'svelte';
     import { navigate } from 'svelte-routing';
     import CharacterImage from '../assets/image_character.jpg';
-    import BackgroundImage from '../assets/image_background.jpg';
     import logoImage from '../assets/logo_images.png';
-
+    import { resultImageStore } from '../store';
+    import { get } from 'svelte/store';
     let progress = 100; // 마지막 단계
     let userName = '';
     let showPhoneInput = false;
@@ -14,6 +14,12 @@
     let showDateInput = false;
     let visitDate = '';
     let isFormCompleted = false;
+    let BackgroundImage: string | null = null;
+
+    onMount(() => {
+        BackgroundImage = get(resultImageStore);
+        window.scrollTo(0, 0);
+    });
 
     function handleNameSubmit() {
         if (userName.trim()) {
@@ -48,7 +54,7 @@
 
     function handlePhoneInput(event: Event) {
         const input = event.target as HTMLInputElement;
-        input.value = formatPhoneNumber(input.value);ㄹ
+        input.value = formatPhoneNumber(input.value);
         phoneNumber = input.value;
     }
 
