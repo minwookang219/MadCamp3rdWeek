@@ -1,11 +1,58 @@
+/* Pretendard 폰트 정의 */
+@font-face {
+  font-family: 'Pretendard';
+  src: url('/fonts/pretendard/Pretendard-ExtraBold.woff2') format('woff2'),
+       url('/fonts/pretendard/Pretendard-ExtraBold.woff') format('woff');
+  font-weight: 800; /* ExtraBold에 해당하는 weight */
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Pretendard';
+  src: url('/fonts/pretendard/Pretendard-Black.woff2') format('woff2'),
+       url('/fonts/pretendard/Pretendard-Black.woff') format('woff');
+  font-weight: 900; /* Black에 해당하는 weight */
+  font-style: normal;
+  font-display: swap;
+}
+
+
+@font-face {
+  font-family: 'Pretendard';
+  src: url('/fonts/pretendard/Pretendard-Regular.woff2') format('woff2'),
+       url('/fonts/pretendard/Pretendard-Regular.woff') format('woff');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Pretendard';
+  src: url('/fonts/pretendard/Pretendard-Bold.woff2') format('woff2'),
+       url('/fonts/pretendard/Pretendard-Bold.woff') format('woff');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Pretendard';
+  src: url('/fonts/pretendard/Pretendard-Medium.woff2') format('woff2'),
+       url('/fonts/pretendard/Pretendard-Medium.woff') format('woff');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
 :root {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-family: 'Pretendard', Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
 
   color-scheme: light dark;
   color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+  background-color: #FFFFFF;
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
