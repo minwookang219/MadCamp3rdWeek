@@ -13,7 +13,7 @@
     let showTicket = false;
     let isCompleted = false;
     let ticketRef: HTMLDivElement;
-    let ticketNumber = Math.floor(Math.random() * 90000) + 10000;
+    let ticketNumber = 2025;
     
     let BackgroundImage: string | null = null;
     let CharacterImage: string | null = null;
@@ -31,9 +31,9 @@
                 isLoading = false;
                 setTimeout(() => {
                     showTicket = true;
-                }, 500);
-            }, 1000);
-        }, 4000);
+                }, 50);
+            }, 100);
+        }, 400);
     });
     async function saveTicket() {
         if (!ticketRef) return;
@@ -78,6 +78,7 @@
     
     <div class="ticket-container">
         {#if showTicket}
+        <div class="complete-title">티켓이 발급되었어요!</div>
         <div class="ticket-wrapper">
             <div class="ticket" bind:this={ticketRef}>
                 <div class="ticket-background" style="background-image: url({BackgroundImage})">
@@ -87,19 +88,19 @@
                     
                     <div class="ticket-info">
                         <div class="ticket-header">
-                            <h1>IMMERSIVE EXHIBITION</h1>
+                            <h1>MAD EXHIBITION</h1>
                             <span class="ticket-number">No. {ticketNumber}</span>
                         </div>
 
                         <div class="info-grid">
                             <div class="info-item">
                                 <span class="label">방문자</span>
-                                <span class="value">{userName || '홍길동'}</span>
+                                <span class="value">{userName || '이승재'}</span>
                             </div>
                             
                             <div class="info-item">
                                 <span class="label">방문일</span>
-                                <span class="value">{visitDate || '2024.03.21'}</span>
+                                <span class="value">{visitDate || '2025.02.19'}</span>
                             </div>
                             
                             <div class="info-item">
@@ -112,7 +113,7 @@
             </div>
             <div class="discount-info">
                 <span class="discount-icon">💡</span>
-                위 티켓을 매표소 직원에게 보여주시면 30% 할인을 해드립니다
+                위 티켓을 매표소 직원에게 보여주시면 90% 할인을 해드립니다
             </div>
             <div class="button-container">
                 <button class="save-button" on:click={saveTicket}>
@@ -168,7 +169,7 @@
     .loading-spinner {
         width: 50px;
         height: 50px;
-        border: 5px solid var(--primary-color);
+        border: 5px solid #ffffff;
         border-top: 5px solid transparent;
         border-radius: 50%;
         margin: 0 auto 20px;
@@ -176,7 +177,7 @@
     }
     
     .loading-text, .complete-text {
-        position: absolute;
+        position: relative;
         left: 50%;
         top: 100%;
         transform: translateX(-50%);
@@ -208,6 +209,32 @@
         0% { transform: rotate(0deg); }
         100% { transform: rotate(360deg); }
     }
+
+    .complete-title{
+        display: flex;
+        position: absolute;
+        z-index: 99;
+        top: 6%;
+        font-size: 60px;
+        font-weight: 600;
+        letter-spacing: 2px;
+        justify-content: center;
+        align-items: center;
+    }
+
+    /* 형광펜 밑줄 효과 */
+    .complete-title::after {
+        content: '';
+        position: absolute;
+        bottom: 10px; /* 텍스트에서 밑줄의 거리 */
+        left: 0;
+        width: 100%; /* 밑줄이 텍스트 너비를 덮도록 설정 */
+        height: 20px; /* 형광펜 두께 */
+        background-color: rgb(127, 187, 255); /* 형광펜 색상 (노란색) */
+        z-index: -1; /* 텍스트 아래로 이동 */
+        opacity: 0.7; /* 형광펜 투명도 */
+        transform: skewX(-20deg); /* 약간의 기울임 효과 */
+    }
     
     .ticket-container {
         display: flex;
@@ -226,14 +253,17 @@
     }
 
     .ticket {
-        background: white;
+        background: #ffffff;
         width: 100%;
-        max-width: 600px;
-        aspect-ratio: 1.8;
+        min-width: 800px;
+        aspect-ratio: 2.5;
         border-radius: 15px;
         box-shadow: 0 4px 25px rgba(0, 0, 0, 0.4);
         position: relative;
-        overflow: hidden;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-top: 10px;
     }
 
     .ticket-background {
@@ -243,24 +273,40 @@
         background-position: center;
         position: relative;
         display: flex;
+        align-items: center; /* 수직 중앙 정렬 */
+        justify-content: flex-start; /* 수평 왼쪽 정렬 */
         background-repeat: no-repeat;
+        background-color: #111111;
+        margin: 10px;
+        border-radius: 4px;
     }
 
     .character-image {
-        width: 35%;
-        height: 50%;
-        position: relative;
-        top: 25%;
-        bottom: 25%;
-        overflow: hidden;
-        border-right: 2px solid rgba(255, 255, 255, 0.3);
-    }
+    width: 160px; /* 고정 너비 */
+    height: 160px; /* 고정 높이 */
+    /* 또는 반응형을 원하시면 다음과 같이 설정할 수 있습니다:
+    width: 35%;
+    aspect-ratio: 1 / 1; /* 너비와 높이가 동일하게 유지 */
+    overflow: hidden;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-radius: 50%; /* 원형을 만들기 위해 50% 설정 */
+    background-color: aquamarine;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto; /* 중앙 정렬 */
+    margin-right: 4px;
+}
 
-    .character-image img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-    }
+.character-image img {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%; /* 이미지도 원형으로 */
+}
 
     .ticket-info {
         width: 65%;
@@ -269,7 +315,8 @@
         backdrop-filter: blur(5px);
         margin-left: auto;
         color: white;
-        text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+        border-radius: 4px;
+
     }
 
     .ticket-header {
@@ -283,7 +330,6 @@
         color: white;
         margin: 0;
         margin-bottom: 10px;
-        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
     }
 
     .ticket-number {
@@ -313,37 +359,43 @@
         color: white;
         font-weight: bold;
         font-size: 16px;
-        text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+
     }
 
-    .ticket::before {
-        content: '';
-        position: absolute;
-        top: -8px;
-        left: 0;
-        right: 0;
-        height: 16px;
-        background-image: linear-gradient(45deg, transparent 33.333%, #ffffff 33.333%, #ffffff 66.667%, transparent 66.667%),
-            linear-gradient(-45deg, transparent 33.333%, #ffffff 33.333%, #ffffff 66.667%, transparent 66.667%);
-        background-size: 16px 32px;
-        background-position: 0 0;
-        background-repeat: repeat-x;
-        transform: rotate(180deg);
-    }
 
-    .ticket::after {
-        content: '';
-        position: absolute;
-        bottom: -8px;
-        left: 0;
-        right: 0;
-        height: 16px;
-        background-image: linear-gradient(45deg, transparent 33.333%, #111111 33.333%, #111111 66.667%, transparent 66.667%),
-            linear-gradient(-45deg, transparent 33.333%, #111111 33.333%, #111111 66.667%, transparent 66.667%);
-        background-size: 16px 32px;
-        background-position: 0 0;
-        background-repeat: repeat-x;
-    }
+    .ticket::before,
+.ticket::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    width: 20px;
+    height: 100%;
+    background-size: 20px 40px;  /* 반원 하나의 크기 (가로x세로) */
+    background-repeat: repeat-y;  /* 세로 방향으로 반복 */
+    transform: none;
+}
+
+.ticket::before {  /* 왼쪽 반원 */
+    left: -10px;
+    background-image: radial-gradient(
+        circle at 0 20px,  /* 원의 중심점 위치 (x y) */
+        transparent 0,     /* 중심에서 0px까지는 투명 */
+        transparent 10px,  /* 10px까지도 투명 */
+        white 10px,       /* 10px부터는 흰색 시작 */
+        white 20px        /* 20px까지 흰색 유지 */
+    );
+}
+
+.ticket::after {   /* 오른쪽 반원 */
+    right: -10px;
+    background-image: radial-gradient(
+        circle at 20px 20px,  /* 원의 중심점을 오른쪽에 위치 */
+        transparent 0,
+        transparent 10px,
+        white 10px,
+        white 20px
+    );
+}
 
     .ticket-background::before {
         content: '';
@@ -352,10 +404,6 @@
         left: 0;
         right: 0;
         bottom: 0;
-        background: linear-gradient(90deg, 
-            rgba(0, 0, 0, 0.1) 0%, 
-            rgba(0, 0, 0, 0) 50%
-        );
         pointer-events: none;
     }
 
@@ -431,8 +479,7 @@
 
     .ticket-wrapper {
         position: relative;
-        width: 100%;
-        max-width: 600px;
+        width: 50%;
         margin-bottom: 40px;
     }
 

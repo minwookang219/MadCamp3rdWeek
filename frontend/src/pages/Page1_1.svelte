@@ -178,19 +178,54 @@
       </div>
   </div>
 
+  <hr class="black-line">
+  
+  <hr class="black-line2">
+  <hr class="black-line3">
+  <div class="vertical-line"></div>
   </main>
   
   <style>
     .main {
+      position: relative;
       background-color: #000000;
       padding: 0%;
       margin: 0%;
+
+        /* 세로선 배경 추가 */
+      background: linear-gradient(
+        to right,
+        black 0%,
+        aquamarine 10%,
+        aquamarine 10%,
+        black 8%
+      );
+      background-size: 3500% 100%;
     }
+
+    .main::before,
+  .main::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  width: 2px;
+  height: 100%;
+  background-color: aquamarine;
+  z-index: 5;
+}
+
+.main::before {
+  left: 8%; /* 첫 번째 세로선 위치 */
+}
+
+.main::after {
+  left: 92%; /* 두 번째 세로선 위치 */
+}
 
     .input-title {
       font-size: 36px;
       font-weight: bold;
-      color: #ffffff;
+      color: aquamarine;
       text-align: center;
       letter-spacing: 6px; /* 글자 간격 설정 */
     }
@@ -203,8 +238,33 @@
       left: 0;
       border-radius: 8px;
       padding: 10px;
-
     }
+
+    .black-line {
+        width: 100%;
+        position: absolute;
+        top: -1.2%;
+        border: 2px solid aquamarine; 
+        padding: 0px;
+        border-radius: 12px;
+        z-index: 2000;
+    }
+    .black-line2 {
+        width: 100%;
+        position: absolute;
+        top: 10%;
+        border: 1px solid aquamarine; /* 두께, 스타일, 색상 */
+        border-radius: 12px;
+        z-index: 1;
+    }    
+    .black-line3 {
+        width: 100%;
+        position: absolute;
+        top: 85%;
+        border: 1px solid aquamarine; /* 두께, 스타일, 색상 */
+        border-radius: 12px;
+        z-index: 1;
+    }    
   
     .input-button-group {
       display: flex;
@@ -272,7 +332,7 @@
     .recommended-names h3 {
       font-size: 32px;
       font-weight: bold;
-      color: #ffffff;
+      color: aquamarine;
       margin-bottom: 10px;
       letter-spacing: 3px; /* 글자 간격 설정 */
     }
@@ -346,7 +406,7 @@
       text-align: center;
       font-size: 16px;
       font-weight: bold;
-      color: #ffffff;
+      color: aquamarine;
     }
     .section1 {
       flex: 1; /* 3등분 */
@@ -372,6 +432,7 @@
         padding-top: 90px;
         padding-bottom: 65px;
         gap: 40px;
+        z-index: 10;
     }
 
     .left-section {
@@ -380,6 +441,7 @@
         flex-direction: column;
         justify-content: space-between;
         gap: 20px;
+        z-index: 10;
     }
 
     .right-section {
@@ -389,6 +451,7 @@
         justify-content: space-around;
         align-items: center;
         gap: 0px;
+        z-index: 10;
     }
 
     .sculpture-preview {
@@ -397,7 +460,6 @@
         background-color: #f5f5f5;
         border: 2px solid #ddd;
         border-radius: 8px;
-        overflow: hidden;
     }
 
     .sculpture-preview img {

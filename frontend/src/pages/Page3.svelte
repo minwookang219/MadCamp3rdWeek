@@ -6,7 +6,7 @@
     import logoImage from '../assets/logo_images.png';
     import { resultImageStore, characterImageStore } from '../store';
     import { get } from 'svelte/store';
-    let progress = 100; // 마지막 단계
+    let progress = 98; // 마지막 단계
     let userName = '';
     let showPhoneInput = false;
     let phoneNumber = '';
@@ -66,7 +66,8 @@
 
 <main class="main">
     <div class="title-container">
-        <div class="title">거의 다 왔어요</div>
+        <div class="title">3. 티켓 마무리</div>
+        <div class="title2">이름, 전화번호, 방문일을 적고, 만든 티켓을 확인해요!</div>
     </div>
 
     <div class="content-container">
@@ -151,15 +152,20 @@
                 </div>
             {/if}
         </div>
+
+
     </div>
+    
+    <hr class="black-line">
+    <hr class="black-line2">
 
     <!-- 진행 바 -->
     <div class="progress-bar">
         <div class="progress" style={`width: ${progress}%;`}></div>
         <div class="progress-sections">
-            <div class="section">조각상 만들기</div>
-            <div class="section">배경 꾸미기</div>
-            <div class="section">티켓 마무리</div>
+            <div class="section"></div>
+            <div class="section">99.9%</div>
+            <div class="section"></div>
         </div>
     </div>
 
@@ -167,7 +173,7 @@
         <div class="footer-content">
             <img src={logoImage} alt="전시회 로고" class="footer-logo" />
             <div class="footer-text">
-                몰입전시회 팝업스토어 "전시회"
+                몰입전시 팝업스토어 "전시회"
             </div>
         </div>
     </div>
@@ -176,59 +182,98 @@
 
 <style>
     .main {
-        background-color: #aff7b2;
+        background-color: #000000;
+        padding-bottom: 350px;
     }
 
     .title-container {
         position: relative;
-        margin-top: 98px;
-        width: 68%;
-        margin-left: 16%;
-        margin-right: 16%;
+        margin-top: 50px;
+        width: 100%;
+        margin-left: 0%;
+        margin-right: 0%;
         padding: 20px;
-        border-radius: 8px;
+        background-color: #000000;
         z-index: 1000;
     }
 
     .title {
         font-size: 76px;
         font-weight: bold;
-        color: #333;
+        color: #FF8A01;
         text-align: center;
+        letter-spacing: 8px;
+    }
+    .title2 {
+        font-size: 18px;
+        font-weight: 400;
+        color: #FF8A01;
+        text-align: center;
+        letter-spacing: 6px;
+        padding-top: 8px;
     }
 
     .content-container {
         display: flex;
         justify-content: space-between;
         width: 68%;
-        margin: 64px 16% 0 16%;
+        margin: 32px 16% 0 16%;
         gap: 64px;
     }
 
     .left-section {
-        flex: 3;
-        width: 100%;
-        background: var(--primary-color-light);
-        padding: 32px;
-        border-radius: 12px;
-    }
+    flex: 3;
+    width: 100%;
+    background-color: #000000;
+    border: 2px solid #FF8A01; /* 두께, 스타일, 색상 */
+    padding: 32px;
+    border-top-left-radius: 0px;     /* 왼쪽 상단 모서리 반경 */
+    border-top-right-radius: 16px;    /* 오른쪽 상단 모서리 반경 */
+    border-bottom-right-radius: 16px; /* 오른쪽 하단 모서리 반경 */
+    border-bottom-left-radius: 0px;  /* 왼쪽 하단 모서리 반경 */
+}
 
-    .right-section {
-        flex: 7;
+.right-section {
+    flex: 7;
+    width: 100%;
+    background-color: #FF8A01;
+    border: 2px solid #000000; /* 두께, 스타일, 색상 */
+    padding: 32px;
+    padding-top: 8px;
+    border-top-left-radius: 16px;     /* 왼쪽 상단 모서리 반경 */
+    border-top-right-radius: 0px;    /* 오른쪽 상단 모서리 반경 */
+    border-bottom-right-radius: 0px; /* 오른쪽 하단 모서리 반경 */
+    border-bottom-left-radius: 16px;  /* 왼쪽 하단 모서리 반경 */
+}
+
+    .black-line {
         width: 100%;
-        background: var(--primary-color-light);
-        padding: 32px;
+        position: absolute;
+        top: 4.5%;
+        border: 4px solid #FF8A01; /* 두께, 스타일, 색상 */
+        padding: 0px;
         border-radius: 12px;
+        z-index: 2000;
+    }
+    .black-line2 {
+        width: 100%;
+        position: absolute;
+        top: 21.5%;
+        border: 2px solid #FF8A01; /* 두께, 스타일, 색상 */
+        padding: 0px;
+        z-index: 2000;
     }
 
     .input-group {
         margin-bottom: 24px;
         width: 100%;
+        
     }
 
     label {
         display: block;
-        color: #000000;
+        color: #FF8A01;
+        font-weight: 600;
         margin-bottom: 12px;
         font-size: 20px;
         text-align: center;
@@ -238,10 +283,10 @@
     input {
         width: 60%;
         padding: 16px;
-        border: 2px solid #333;
+        border: 2px solid #FF8A01;
         border-radius: 8px;
         background: rgba(255, 255, 255, 0.1);
-        color: black;
+        color: #FF8A01;
         font-size: 18px;
         text-align: center;
         margin-bottom: 16px;
@@ -285,7 +330,7 @@
         top: 0;
         left: 0;
         height: 100%;
-        background-color: #aff7b2;
+        background-color: #FF8A01;
         z-index: 1;
         transition: width 0.3s ease;
     }
@@ -319,8 +364,8 @@
     .submit-button {
         width: 100px;
         padding: 16px 0;
-        background: var(--primary-color);
-        color: white;
+        background: #FF8A01;
+        color: black;
         border: none;
         border-radius: 8px;
         font-size: 18px;
@@ -334,7 +379,7 @@
     }
 
     .submit-button:hover {
-        background: var(--primary-color-dark);
+        background: #FF8A01;
         transform: translateY(-2px);
     }
 
@@ -352,15 +397,16 @@
     }
 
     .images-container {
-        margin-top: 32px;
+        margin-top: 8px;
         text-align: center;
         width: 100%;
+        background-color: #FF000000;
     }
 
     .images-container h2 {
         color: #000000;
-        font-size: 24px;
-        margin-bottom: 32px;
+        font-size: 32px;
+        margin-bottom: 16px;
     }
 
     .images-grid {
@@ -375,14 +421,16 @@
         text-align: center;
         display: flex;
         flex-direction: column;
-        align-items: center;
-        justify-content: center;
+        align-items: start;
+        justify-content: left;
+        padding-left: 12px;
     }
 
     .image-item h3 {
         color: #000000;
-        font-size: 18px;
+        font-size: 20px;
         margin-bottom: 20px;
+        padding-left: 12px;
     }
 
     .image-item img {
@@ -394,30 +442,32 @@
     }
 
     .ticket-button-container {
+        display: flex;
         margin-top: 40px;
         text-align: center;
+        align-items: end;
+        justify-content: end;
     }
 
     .ticket-button {
-        padding: 20px 40px;
-        background: var(--primary-color);
-        color: white;
-        border: none;
+        padding: 20px 4px;
+        background: #FF8A01;
+        color: black;
         border-radius: 12px;
         font-size: 24px;
         font-weight: bold;
         cursor: pointer;
         transition: all 0.3s ease;
         display: flex;
-        align-items: center;
+        align-items: end;
+        justify-content: end;
         gap: 12px;
-        margin: 0 auto;
     }
 
     .ticket-button:hover {
-        background: var(--primary-color-dark);
-        transform: translateY(-2px);
-        box-shadow: 0 4px 12px rgba(85, 146, 252, 0.3);
+        background: #FF8A01;
+        transform: translateY(-2px) scale(1.04);
+        border: 2px solid #FF8A01; /* 두께, 스타일, 색상 */
     }
 
     .ticket-button .arrow {
@@ -434,6 +484,7 @@
         gap: 12px;
         justify-content: flex-start;
         width: 100%;
+        background-color: #000000;
     }
 
     .footer {
