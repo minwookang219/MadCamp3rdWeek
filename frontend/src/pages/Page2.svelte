@@ -10,15 +10,16 @@
     import { resultImageStore } from '../store'; // Import store
     
     let isLoading = false;
+    let lineEnd = false;
     let selectedArtist: string | null = null;
     let resultImage: string | null = null;
     let canvasRef: HTMLCanvasElement;
     
     const artists = [
-        { id: 'vangogh', name: '별이 빛나는 밤에 - 빈센트 반 고흐', style: '후기 인상주의', image: vangoghImage },
-        { id: 'dali', name: '살바도르 달리', style: '초현실주의', image: daliImage },
-        { id: 'picasso', name: '파블로 피카소', style: '입체파', image: picassoImage },
-        { id: 'monet', name: '클로드 모네', style: '인상주의', image: monetImage }
+        { id: 'vangogh', name: '별이 빛나는 밤에 - 빈센트 반 고흐', style: '후기 인상주의 - 색채와 감정을 강조하며 강렬한 붓질로 표현된 작품', image: vangoghImage },
+        { id: 'dali', name: '기억의 지속 - 살바도르 달리', style: '초현실주의 - 꿈과 무의식을 표현하며 비현실적이고 기괴한 이미지가 특징', image: daliImage },
+        { id: 'picasso', name: '게르니카 - 파블로 피카소', style: '입체파 - 사물을 다양한 관점에서 분해하고 재구성하여 표현', image: picassoImage },
+        { id: 'monet', name: '수련 - 클로드 모네', style: '인상주의 - 빛과 색의 변화를 포착하며 자연의 순간적 인상을 표현', image: monetImage }
     ];
 
     let progress = 66.66666667; // 세 번째 단계이므로 진행률 66.67%
@@ -29,6 +30,8 @@
         alert('화가와 그림을 모두 선택해주세요');
         return;
     }
+
+    lineEnd = true;
 
     isLoading = true;
     try {
@@ -104,7 +107,7 @@
     }
 </script>
 
-<main>
+<main class="main">
     {#if isLoading}
         <div class="loading-overlay">
             <div class="loading-content">
@@ -189,6 +192,8 @@
         </div>
     </div>
 </div>
+
+<hr class="black-line">
 </main>
 
 <style>
@@ -205,7 +210,27 @@
         height: 100vh;
         overflow: hidden;
         background: #000000;
+        position: relative;
     }
+
+    .main::before,
+    .main::after {
+    content: '';
+    position: absolute;
+    bottom: 0%;
+    width: 2px;
+    height: 100%;
+    background-color: #ff55ff;
+    z-index: 10;
+    }
+
+    .main::before {
+  left: 8%; /* 첫 번째 세로선 위치 */
+}
+
+.main::after {
+  left: 32%; /* 두 번째 세로선 위치 */
+}
 
     .section-divider {
         width: 100%;
@@ -228,12 +253,23 @@
         justify-content: center;
     }
 
+    .black-line {
+        width: 100%;
+        position: absolute;
+        top: 4.5%;
+        border: 4px solid #ff55ff; /* 두께, 스타일, 색상 */
+        padding: 0px;
+        border-radius: 12px;
+        z-index: 2000;
+    }
+
     .select-image {
         font-size: 32px;
-        color: #ffffff;
+        color: #ff55ff;
         text-align: center;
+        margin-top: 32px;
         margin-bottom: 12px;
-        padding-left: 48px;
+        padding-left: 16px;
         font-weight: 600;
     }
 
@@ -247,30 +283,32 @@
     .artist-card {
         width: calc(100% - 10px);
         margin: 0 auto;
-        padding: 30px;
+        padding: 12px;
         display: flex;
         align-items: center;
         gap: 15px;
-        background: #ffffff;
-        border: 2px solid #333;
+        background: #000000;
+        border: 2px solid #ff55ff;
         border-radius: 12px;
         cursor: pointer;
         transition: all 0.3s ease;
+        z-index: 100;
     }
 
     .artist-card:hover {
-        background: var(--primary-color-dark);
+        scale: 1.03;
         transform: translateY(-2px);
     }
 
     .artist-card.selected {
-        background: var(--primary-color);
-        border-color: black;
+        opacity: 0.9;
+        scale: 1.03;
+        border: 4px solid #ff55ff;
     }
 
     .artist-image {
-        width: 80px;
-        height: 80px;
+        width: 100px;
+        height: 100px;
         object-fit: cover;
         border-radius: 8px;
     }
@@ -281,20 +319,20 @@
 
     .artist-card h3 {
         font-size: 20px;
-        color: #000000;
+        color: #ff55ff;
         margin: 0 0 10px 0;
     }
 
     .artist-card p {
         font-size: 16px;
-        color: #000000;
+        color: #ff55ff;
         margin: 0;
     }
 
     .canvas-container {
         width: 80%;
         margin: 0 auto;
-        background: white;
+        background: black;
         border-radius: 12px;
         overflow: hidden;
     }
@@ -304,9 +342,9 @@
         margin: 0 auto;
         padding: 15px 30px;
         font-size: 20px;
-        background: var(--primary-color-dark);
-        color: black;
-        border: none;
+        background: black;
+        color: #ff55ff;
+        border: 2px solid #ff55ff;
         border-radius: 8px;
         cursor: pointer;
         transition: all 0.3s ease;
@@ -318,7 +356,7 @@
     }
 
     .transform-button:hover:not(:disabled) {
-        background: var(--primary-color);
+        background: black;
         transform: translateY(-2px);
     }
 
@@ -404,7 +442,7 @@
         text-align: center;
         font-size: 16px;
         font-weight: bold;
-        color: #FFFFFF;
+        color: #ff55ff;
     }
     .section1 {
         flex: 2;
@@ -547,7 +585,7 @@
         flex-direction: column;
         gap: 18px;
         text-align: center;
-        justify-content: center;
+        justify-content: left;
     }
     .right-panel {
         display: flex;
@@ -625,7 +663,7 @@
     .loading-spinner {
         width: 50px;
         height: 50px;
-        border: 5px solid #ffffff;
+        border: 5px solid #ff55ff;
         border-top: 5px solid transparent;
         border-radius: 50%;
         margin: 0 auto 20px;
@@ -635,7 +673,7 @@
     .loading-content p {
         font-size: 24px;
         font-weight: bold;
-        color: #ffffff;
+        color: #ff55ff;
         margin: 0;
         white-space: nowrap;
     }
