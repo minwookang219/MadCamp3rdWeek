@@ -15,7 +15,7 @@
     let canvasRef: HTMLCanvasElement;
     
     const artists = [
-        { id: 'vangogh', name: '빈센트 반 고흐', style: '후기 인상주의', image: vangoghImage },
+        { id: 'vangogh', name: '별이 빛나는 밤에 - 빈센트 반 고흐', style: '후기 인상주의', image: vangoghImage },
         { id: 'dali', name: '살바도르 달리', style: '초현실주의', image: daliImage },
         { id: 'picasso', name: '파블로 피카소', style: '입체파', image: picassoImage },
         { id: 'monet', name: '클로드 모네', style: '인상주의', image: monetImage }
@@ -58,7 +58,7 @@
             formData.append('content', contentBlob, 'drawing.jpg');
             formData.append('style', styleBlob, `${artist.id}.jpg`);
 
-            const response = await fetch('http://127.0.0.1:8002/transform2', {
+            const response = await fetch('http://127.0.0.1:8001/transform2', {
                 method: 'POST',
                 body: formData,
             });
@@ -115,30 +115,15 @@
     {/if}
 
     <div class="scroll-container">
-        <div class="scroll-section">
-            <div class="section-divider"></div>
-            <section class="description-section">
-                <h1>화가의 화풍으로 변신하기</h1>
-                <div class="artist-images">
-                    {#each artists as artist, i}
-                        <img src={artist.image} alt={artist.name} class="artist-title-image" style="animation-delay: {i * 1}s;"/>
-                    {/each}
-                </div>
-                <div class="scroll-guide">
-                    <span class="scroll-text">아래로 스크롤하세요</span>
-                    <span class="scroll-arrow">↓</span>
-                </div>
-            </section>
-        </div>
 
         <div class="scroll-section">
             <section class="function-section">
-                <div class="help-text">
-                    그림을 그린 후, 원하는 화가의 화풍으로 변환해드립니다
-                </div>
                 
                 <div class="content-layout">
                     <div class="left-panel">
+                        <div class="select-image">
+                            닮고 싶은 화풍을 고르세요
+                        </div>
                         <div class="artist-grid">
                             {#each artists as artist}
                                 <div 
@@ -190,8 +175,7 @@
     <div class="progress-bar">
         <div class="progress" style={`width: ${progress}%;`}></div>
         <div class="progress-sections">
-            <div class="section">조각상 만들기</div>
-            <div class="section">배경 꾸미기</div>
+            <div class="section1">66.6%</div>
             <div class="section">티켓 마무리</div>
         </div>
     </div>
@@ -220,6 +204,7 @@
         padding: 0;
         height: 100vh;
         overflow: hidden;
+        background: #000000;
     }
 
     .section-divider {
@@ -243,20 +228,13 @@
         justify-content: center;
     }
 
-    h1 {
-        font-size: 64px;
-        color: rgb(0, 0, 0);
-        text-align: center;
-        margin-bottom: 40px;
-    }
-
-    .help-text {
+    .select-image {
         font-size: 32px;
-        color: #000000;
+        color: #ffffff;
         text-align: center;
+        margin-bottom: 12px;
+        padding-left: 48px;
         font-weight: 600;
-        padding: 20px;
-        letter-spacing: 1px;
     }
 
     .artist-grid {
@@ -273,7 +251,7 @@
         display: flex;
         align-items: center;
         gap: 15px;
-        background: var(--primary-color-light);
+        background: #ffffff;
         border: 2px solid #333;
         border-radius: 12px;
         cursor: pointer;
@@ -392,7 +370,7 @@
         left: 0;
         width: 100%;
         height: 50px;
-        background-color: #f0f0f0;
+        background-color: #000000;
         z-index: 9999;
         display: flex;
         align-items: center;
@@ -405,7 +383,7 @@
         top: 0;
         left: 0;
         height: 100%;
-        background-color: #aff7b2;
+        background-color: #ff55ff;
         z-index: 1;
         transition: width 0.3s ease;
     }
@@ -426,7 +404,17 @@
         text-align: center;
         font-size: 16px;
         font-weight: bold;
-        color: #000;
+        color: #FFFFFF;
+    }
+    .section1 {
+        flex: 2;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        font-size: 16px;
+        font-weight: bold;
+        color: #000000;
     }
 
     .section:last-child {
@@ -551,14 +539,22 @@
         display: flex;
         width: 90%;
         max-width: 1600px;
-        margin: 20px auto;
-        gap: 40px;
+        /* margin: 20px auto; */
     }
 
-    .left-panel, .right-panel {
+    .left-panel {
         display: flex;
         flex-direction: column;
-        gap: 20px;
+        gap: 18px;
+        text-align: center;
+        justify-content: center;
+    }
+    .right-panel {
+        display: flex;
+        flex-direction: column;
+        gap: 18px;
+        margin-right: -100px;
+        padding-bottom: 40px;
     }
 
     .left-panel {

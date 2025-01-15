@@ -3,14 +3,14 @@
     import { onMount } from 'svelte';
     import { navigate } from 'svelte-routing';
     // 이미지 import
-    import sculpture1 from '../assets/images_tab1/statue_1.webp';
-    import sculpture2 from '../assets/images_tab1/statue_2.webp';
-    import sculpture3 from '../assets/images_tab1/statue_3.webp';
-    import sculpture4 from '../assets/images_tab1/statue_4.webp';
-    import sculpture5 from '../assets/images_tab1/statue_5.webp';
+    import vangoghImage from '../assets/images_tab2/vangogh.webp';
+    import monetImage from '../assets/images_tab2/monet.webp';
+    import picassoImage from '../assets/images_tab2/picasso.webp';
+    import daliImage from '../assets/images_tab2/dali.webp';
 
     // 슬라이더 애니메이션을 위한 변수
     let isHovered = false;
+    let footerVisible = false;
 
     let resultImage: string | null = null;
 
@@ -23,11 +23,12 @@
     });
 
     onMount(() => {
+        footerVisible = true; // footer 표시 상태를 활성화
         window.scrollTo(0, 0);  // 페이지 로드 시 스크롤을 맨 위로
     });
 
     function handleNextPage() {
-        navigate('/theme1_1');
+        navigate('/theme2');
     }
 </script>
 
@@ -43,33 +44,30 @@
             on:mouseleave={() => isHovered = false}>
             <div class="slider" >
                 <!-- 첫 번째 세트 -->
-                <img src={sculpture1} alt="sculpture 1">
-                <img src={sculpture2} alt="sculpture 2">
-                <img src={sculpture3} alt="sculpture 3">
-                <img src={sculpture4} alt="sculpture 4">
-                <img src={sculpture5} alt="sculpture 5">
-                <!-- 순환을 위한 복제 세트 -->
-                <img src={sculpture1} alt="sculpture 1">
-                <img src={sculpture2} alt="sculpture 2">
-                <img src={sculpture3} alt="sculpture 3">
-                <img src={sculpture4} alt="sculpture 4">
-                <img src={sculpture5} alt="sculpture 5">
-                <!-- 첫 번째 세트 -->
-                <img src={sculpture1} alt="sculpture 1">
-                <img src={sculpture2} alt="sculpture 2">
-                <img src={sculpture3} alt="sculpture 3">
-                <img src={sculpture4} alt="sculpture 4">
-                <img src={sculpture5} alt="sculpture 5">
-                <!-- 순환을 위한 복제 세트 -->
-                <img src={sculpture1} alt="sculpture 1">
-                <img src={sculpture2} alt="sculpture 2">
-                <img src={sculpture3} alt="sculpture 3">
-                <img src={sculpture4} alt="sculpture 4">
-                <img src={sculpture5} alt="sculpture 5">
+                <img src={vangoghImage} alt="sculpture 1">
+                <img src={monetImage} alt="sculpture 2">
+                <img src={picassoImage} alt="sculpture 3">
+                <img src={daliImage} alt="sculpture 4">
+                <img src={vangoghImage} alt="sculpture 1">
+                <img src={monetImage} alt="sculpture 2">
+                <img src={picassoImage} alt="sculpture 3">
+                <img src={daliImage} alt="sculpture 4">
+                <img src={vangoghImage} alt="sculpture 1">
+                <img src={monetImage} alt="sculpture 2">
+                <img src={picassoImage} alt="sculpture 3">
+                <img src={daliImage} alt="sculpture 4">
+                <img src={vangoghImage} alt="sculpture 1">
+                <img src={monetImage} alt="sculpture 2">
+                <img src={picassoImage} alt="sculpture 3">
+                <img src={daliImage} alt="sculpture 4">
+                <img src={vangoghImage} alt="sculpture 1">
+                <img src={monetImage} alt="sculpture 2">
+                <img src={picassoImage} alt="sculpture 3">
+                <img src={daliImage} alt="sculpture 4">
             </div>
         </div>
         
-        <h1 class="title" on:click={handleNextPage}>1. 조각상 생성 »</h1>
+        <h1 class="title" on:click={handleNextPage}>2. 작가 따라잡기 »</h1>
 
         <!-- 하단 슬라이더 -->
         <div class="slider-container-bottom" 
@@ -79,39 +77,37 @@
             on:mouseleave={() => isHovered = false}>
             <div class="slider">
                 <!-- 첫 번째 세트 -->
-                <img src={sculpture1} alt="sculpture 1">
-                <img src={sculpture2} alt="sculpture 2">
-                <img src={sculpture3} alt="sculpture 3">
-                <img src={sculpture4} alt="sculpture 4">
-                <img src={sculpture5} alt="sculpture 5">
-                <!-- 순환을 위한 복제 세트 -->
-                <img src={sculpture1} alt="sculpture 1">
-                <img src={sculpture2} alt="sculpture 2">
-                <img src={sculpture3} alt="sculpture 3">
-                <img src={sculpture4} alt="sculpture 4">
-                <img src={sculpture5} alt="sculpture 5">
-                <!-- 첫 번째 세트 -->
-                <img src={sculpture1} alt="sculpture 1">
-                <img src={sculpture2} alt="sculpture 2">
-                <img src={sculpture3} alt="sculpture 3">
-                <img src={sculpture4} alt="sculpture 4">
-                <img src={sculpture5} alt="sculpture 5">
-                <!-- 순환을 위한 복제 세트 -->
-                <img src={sculpture1} alt="sculpture 1">
-                <img src={sculpture2} alt="sculpture 2">
-                <img src={sculpture3} alt="sculpture 3">
-                <img src={sculpture4} alt="sculpture 4">
-                <img src={sculpture5} alt="sculpture 5">
+                <img src={vangoghImage} alt="sculpture 1">
+                <img src={monetImage} alt="sculpture 2">
+                <img src={picassoImage} alt="sculpture 3">
+                <img src={daliImage} alt="sculpture 4">
+                <img src={vangoghImage} alt="sculpture 1">
+                <img src={monetImage} alt="sculpture 2">
+                <img src={picassoImage} alt="sculpture 3">
+                <img src={daliImage} alt="sculpture 4">
+                <img src={vangoghImage} alt="sculpture 1">
+                <img src={monetImage} alt="sculpture 2">
+                <img src={picassoImage} alt="sculpture 3">
+                <img src={daliImage} alt="sculpture 4">
+                <img src={vangoghImage} alt="sculpture 1">
+                <img src={monetImage} alt="sculpture 2">
+                <img src={picassoImage} alt="sculpture 3">
+                <img src={daliImage} alt="sculpture 4">
+                <img src={vangoghImage} alt="sculpture 1">
+                <img src={monetImage} alt="sculpture 2">
+                <img src={picassoImage} alt="sculpture 3">
+                <img src={daliImage} alt="sculpture 4">
             </div>
         </div>
     </section>
 
+    {#if footerVisible}
     <div class="footer">
         <div class="footer-content">
-            내가 좋아하고, 내가 원하는 사물, 동물, 혹은 그 어떤 것이든,
-            원하는 것을 생성하세요. 
+            평소 좋아하던 작가의 그림이 있었나요? 오늘, 내 그림을 그려 작가의 화풍과 합쳐보세요
         </div>
     </div>
+    {/if}
 
 </main>
 
@@ -122,7 +118,6 @@
         background: #111111;
         margin: 0;
         padding: 0;
-        overflow-x: hidden;
     }
 
     main {
@@ -165,7 +160,7 @@
         left: 0;
         width: 100%; /* 밑줄이 텍스트 너비를 덮도록 설정 */
         height: 40px; /* 형광펜 두께 */
-        background-color: aquamarine; /* 형광펜 색상 (노란색) */
+        background-color: #ff55ff; /* 형광펜 색상 (노란색) */
         z-index: -1; /* 텍스트 아래로 이동 */
         opacity: 0.7; /* 형광펜 투명도 */
         transform: skewX(-20deg); /* 약간의 기울임 효과 */
@@ -223,8 +218,8 @@
     }
 
     .slider img {
-        width: 240px;
-        height: 320px;
+        width: 300px;
+        height: 300px;
         object-fit: cover;
         border-radius: 10px;
         flex-shrink: 0;
@@ -250,7 +245,7 @@
         justify-content: center;
         align-items: center;
         padding: 10px;
-        z-index: 100;
+        z-index: 1000;
     }
 
     .footer-content {

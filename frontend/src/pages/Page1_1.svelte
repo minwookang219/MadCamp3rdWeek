@@ -11,11 +11,31 @@
   
     // 추천 이름 목록
     let recommendedNames: string[] = [
-      'Edison',
+      'Apple',
       'Steak',
-      'Einstein',
-      'Newton',
-      'Banana'
+      'House',
+      'Horse',
+      'Banana',
+      'Bed',
+      'Chair',
+      'Iphone15',
+      'Android',
+      'Python',
+      'Money',
+      'Bitcoin',
+      'Sunglasses',
+      'Spider man',
+      'Moon',
+      'Money',
+      'Bitcoin',
+      'Sunglasses',
+      'Spider man',
+      'Moon',
+      'Money',
+      'Bitcoin',
+      'Sunglasses',
+      'Spider man',
+      'Moon',
     ];
   
     console.log('Full env:', import.meta.env);
@@ -25,7 +45,7 @@
       
       isLoading = true;
       try {
-        const response = await fetch('http://127.0.0.1:8002/generate', {
+        const response = await fetch('http://127.0.0.1:8001/generate', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'
@@ -67,7 +87,7 @@
       
       // 애니메이션이 완료된 후 페이지 전환
       setTimeout(() => {
-        navigate('/theme2');
+        navigate('/theme2_0');
       }, 500);
     }
   
@@ -77,24 +97,21 @@
     });
   </script>
   
-  <main>
-    <!-- 제목 -->
-    <div class="title-container">
-      <div class="title">조각상 만들기</div>
-    </div>
+  <main class="main">
   
     <div class="content-container">
         <!-- 왼쪽: 텍스트 입력 영역 -->
         <div class="left-section">
             <!-- 텍스트 입력 칸 -->
             <div class="text-input-container">
-                <div class="input-title">조각상 이름을 적어보세요</div>
+                <div class="input-title">생성할 단어 입력</div>
                 <div class="input-button-group">
-                    <textarea 
-                        id="sculpture-input"
-                        bind:value={sculptureText}
-                        placeholder="여기에 입력하세요..."
-                    ></textarea>
+                  <input 
+                  type="text" 
+                  id="sculpture-input"
+                  bind:value={sculptureText}
+                  placeholder="Write in English..."
+              />
                     <button class="generate-button" on:click={generateSculpture}>
                         {#if isLoading}
                             생성 중...
@@ -107,7 +124,7 @@
 
             <!-- 추천 이름 목록 -->
             <div class="recommended-names">
-                <h3>추천 이름 목록</h3>
+                <h3> |추천 이름 목록| </h3>
                 <ul>
                     {#each recommendedNames as name}
                         <li 
@@ -130,13 +147,13 @@
                     <img src={sculptureImage} alt="생성된 조각상" />
                 {:else}
                     <div class="placeholder">
-                        조각상이 이곳에 표시됩니다
+                        생성된 사진이 이 곳에 표시됩니다.
                     </div>
                 {/if}
             </div>
             <button class="next-button" on:click={handleNextPage}>
-                다음 단계로
-                <span class="arrow">→</span>
+                다음 단계로 
+                <span class="arrow">»</span>
             </button>
         </div>
     </div>
@@ -145,7 +162,7 @@
     <div class="progress-bar">
       <div class="progress" style={`width: ${progress}%;`}></div>
       <div class="progress-sections">
-        <div class="section">조각상 만들기</div>
+        <div class="section1">33%</div>
         <div class="section">배경 꾸미기</div>
         <div class="section">티켓 마무리</div>
       </div>
@@ -164,35 +181,18 @@
   </main>
   
   <style>
-    /* 제목을 감싸는 컨테이너 */
-    .title-container {
-      position: relative;
-      margin-top: 98px;
-      width: 68%; /* 전체 너비에서 좌우 여백을 뺀 너비 */
-      margin-left: 16%; /* 왼쪽 여백 */
-      margin-right: 16%; /* 오른쪽 여백 */
-      background-color: var(--primary-color);
-      padding: 20px;
-      border: 2px solid #ddd;
-      border-radius: 8px;
-      box-shadow: 0 2px 6px rgba(5, 4, 4, 0.1);
-      z-index: 1000;
-    }
-  
-    /* 제목 텍스트 스타일 */
-    .title {
-      font-size: 30px;
-      font-weight: bold;
-      color: #333;
-      text-align: center;
-      
+    .main {
+      background-color: #000000;
+      padding: 0%;
+      margin: 0%;
     }
 
     .input-title {
-      font-size: 16px;
+      font-size: 36px;
       font-weight: bold;
-      color: #333;
+      color: #ffffff;
       text-align: center;
+      letter-spacing: 6px; /* 글자 간격 설정 */
     }
   
     /* 텍스트 입력 칸 스타일 */
@@ -201,7 +201,6 @@
       width: 100%;
       margin-top: 0;
       left: 0;
-      background-color: var(--primary-color-light);
       border-radius: 8px;
       padding: 10px;
 
@@ -212,25 +211,39 @@
       gap: 10px;
       align-items: flex-start;
       margin-top: 8px;
+      padding-left: 100px;
+      padding-right: 100px;
     }
   
-    .text-input-container textarea {
-      flex: 1;
-      min-height: 30px;
-      padding: 10px;
-      font-size: 16px;
-      border: 2px solid #ddd;
-      border-radius: 8px;
-      resize: none;
-      box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
-      font-family: inherit;
-    }
+    .input-button-group input {
+    flex: 3;
+    padding: 12px; /* 여유 있는 내부 여백 */
+    font-size: 18px; /* 텍스트 크기 */
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+    font-family: inherit;
+    outline: none; /* 포커스 아웃라인 제거 */
+    transition: border-color 0.2s ease;
+}
+
+.input-button-group input:focus {
+    border-color: aquamarine; /* 포커스 시 테두리 색 변경 */
+    box-shadow: 0 0 5px aquamarine;
+}
+
+.input-button-group input::placeholder {
+    color: #aaa; /* 플레이스홀더 색상 */
+    font-size: 16px; /* 플레이스홀더 크기 */
+    font-weight: 600;
+}
   
     .generate-button {
+      flex: 1;
       padding: 10px 20px;
-      height: 50px;
-      background-color: #5592fc;
-      color: white;
+      height: 51px;
+      background-color: aquamarine;
+      color: #000000;
       border: none;
       border-radius: 8px;
       font-size: 16px;
@@ -240,29 +253,28 @@
     }
   
     .generate-button:hover {
-      background-color: #4077d6;
+      background-color: rgb(112, 228, 189);
     }
   
     .generate-button:active {
-      background-color: #3567c0;
+      background-color: rgb(98, 203, 168);
     }
   
     /* 추천 이름 목록 스타일 */
-    .recommended-names {
-      width: 80%;
-      left: 10%;
-      position: relative;
-      margin-top: 80px;
-      background-color: rgba(85, 146, 252, 0.1);
-      border-radius: 8px;
-      padding: 10px;
+    .recommended-names ul {
+      display: grid; /* 그리드 레이아웃 적용 */
+      grid-template-columns: repeat(5, 1fr); /* 두 개의 열로 구성 */
+      gap: 10px; /* 항목 간격 */
+      padding: 0;
+      margin: 0;
     }
   
     .recommended-names h3 {
-      font-size: 18px;
+      font-size: 32px;
       font-weight: bold;
-      color: #333;
+      color: #ffffff;
       margin-bottom: 10px;
+      letter-spacing: 3px; /* 글자 간격 설정 */
     }
   
     .recommended-names ul {
@@ -273,6 +285,7 @@
   
     .recommended-names li {
       font-size: 16px;
+      font-weight: 600;
       color: #555;
       margin-bottom: 8px;
       padding: 8px;
@@ -283,7 +296,7 @@
     }
   
     .recommended-names li:hover {
-      background-color: #e6f7ff;
+      background-color: rgb(196, 255, 235);
       cursor: pointer;
       transform: translateY(-2px);
       box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -296,7 +309,7 @@
       left: 0;
       width: 100%;
       height: 50px;
-      background-color: #f0f0f0; /* 바탕색 */
+      background-color: #000000; /* 바탕색 */
       z-index: 9999; /* 항상 상단에 표시 */
       display: flex;
       align-items: center;
@@ -310,7 +323,7 @@
       top: 0;
       left: 0;
       height: 100%;
-      background-color: #aff7b2; /* 진행 바 색상 */
+      background-color: aquamarine; /* 진행 바 색상 */
       z-index: 1;
       transition: width 0.3s ease; /* 부드러운 애니메이션 */
     }
@@ -333,7 +346,17 @@
       text-align: center;
       font-size: 16px;
       font-weight: bold;
-      color: #000;
+      color: #ffffff;
+    }
+    .section1 {
+      flex: 1; /* 3등분 */
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      font-size: 16px;
+      font-weight: bold;
+      color: #000000;
     }
   
     /* 마지막 섹션은 구분선 제거 */
@@ -344,22 +367,28 @@
     .content-container {
         display: flex;
         justify-content: space-between;
-        width: 68%;
-        margin: 64px 16% 0 16%;
+        width: 80%;
+        margin: 50px 12% 0 12%;
+        padding-top: 90px;
+        padding-bottom: 65px;
         gap: 40px;
     }
 
     .left-section {
-        flex: 1;
-    }
-
-    .right-section {
-        flex: 1;
+        flex: 4;
         display: flex;
         flex-direction: column;
         justify-content: space-between;
+        gap: 20px;
+    }
+
+    .right-section {
+        flex: 2;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
         align-items: center;
-        gap: 24px;
+        gap: 0px;
     }
 
     .sculpture-preview {
@@ -384,16 +413,15 @@
         justify-content: center;
         align-items: center;
         color: #666;
-        font-size: 16px;
+        font-size: 20px;
         text-align: center;
-        padding: 20px;
     }
 
     .next-button {
         width: 80%;
-        padding: 16px 28px;
-        background-color: var(--primary-color);
-        color: white;
+        padding: 24px 28px;
+        background-color: aquamarine;
+        color: #000000;
         border: none;
         border-radius: 12px;
         font-size: 18px;
@@ -407,7 +435,7 @@
     }
 
     .next-button:hover {
-        background-color: #3567c0;
+        background-color: rgb(94, 193, 160);
         transform: translateY(-2px);
         box-shadow: 0 4px 12px rgba(64, 119, 214, 0.3);
     }
@@ -469,6 +497,7 @@
         font-size: 16px;
         font-weight: 500;
         letter-spacing: 0.5px;
+        color: white;
     }
   </style>
   

@@ -10,6 +10,14 @@
   let showUpLogo3 = false;
   let showUpLogo3_5 = false;
   let showUpLogo4 = false;
+  let showLeftLogo3 = false;
+  let showLeftLogo3_5 = false;
+  let showLeftLogo4 = false;
+  let showWideTexts = false;
+  let showTitle = false;
+  let showSideLine = false;
+  let showSideBar = false;
+  let showStartBtn = false;
 
   let item3Text1 = 'ㅈ';
   let item3Text2 = 'ㅅ';
@@ -51,6 +59,24 @@
       setTimeout(() => {
         changeText();
       }, 6500);
+      setTimeout(() => {
+        showLeftLogo3 =true;
+        showLeftLogo3_5 =true;
+        showLeftLogo4 =true;
+      }, 8000);
+      setTimeout(() => {
+        showWideTexts =true;
+        showTitle =true;
+      }, 8500);
+      setTimeout(() => {
+        showSideLine =true;
+      }, 9500);
+      setTimeout(() => {
+        showSideBar =true;
+      }, 10500);
+      setTimeout(() => {
+        showStartBtn =true;
+      }, 12000);
     }
   }
 
@@ -101,7 +127,8 @@
   {#if showLogo3}
   <div 
     class="logo-container3"
-    class:uplogo3={showUpLogo3} >
+    class:uplogo3={showUpLogo3} 
+    class:leftlogo3={showLeftLogo3}>
     <div class="logo-grid3" >
       <div class="logo-row2" >
           <div class="logo-item2" >ㅁ</div>
@@ -109,14 +136,16 @@
       </div>
       <div class="logo-row2 bottom-row2">
           <div class="logo-item3"
-          class:uplogo3={showUpLogo3}>{item3Text1}</div>
+          class:uplogo3={showUpLogo3}
+          class:leftlogo3={showLeftLogo3}>{item3Text1}</div>
           <div class="logo-item2">ㅅ</div>
       </div>
     </div>
   </div>
   <div 
     class="logo-container3-5"
-    class:uplogo3-5={showUpLogo3_5} >
+    class:uplogo3-5={showUpLogo3_5} 
+    class:leftlogo3-5={showLeftLogo3_5}>
     <div class="logo-grid3" >
       <div class="logo-row2" >
           <div class="logo-item2" >ㅁ</div>
@@ -125,13 +154,15 @@
       <div class="logo-row2 bottom-row2">
           <div class="logo-item2">ㅈ</div>
           <div class="logo-item3"
-          class:uplogo3-5={showUpLogo3_5}>{item3Text2}</div>
+          class:uplogo3-5={showUpLogo3_5}
+          class:leftlogo3-5={showLeftLogo3_5}>{item3Text2}</div>
       </div>
     </div>
   </div>
   <div 
     class="logo-container4"
     class:uplogo4={showUpLogo4}
+    class:leftlogo4={showLeftLogo4}
   >
     <div class="logo-grid3" >
       <div class="logo-row2" >
@@ -140,12 +171,21 @@
       </div>
       <div class="logo-row2 bottom-row2">
           <div class="logo-item3"
-          class:uplogo4={showUpLogo4}>{item3Text3}</div>
+          class:uplogo4={showUpLogo4}
+          class:leftlogo4={showLeftLogo4}>{item3Text3}</div>
           <div class="logo-item2">ㅅ</div>
       </div>
     </div>
   </div>
 
+  {/if}
+
+  {#if showWideTexts}
+    <div class="wide-texts">
+      <div class="wide-text1">먹고싶다</div>
+      <div class="wide-text2">치미말고 동치미</div>
+      <div class="wide-text3">도 먹고싶다</div>
+    </div>
   {/if}
 
 
@@ -163,29 +203,64 @@
         {/if}
 
   {#if !showFullLogo}
+    <div class="click-guide0">
+      ? 몰입 전시 ?
+    </div>
     <div class="click-guide">
-      Click
+      Click the box
     </div>
   {/if}
 
-  {#if showFinalText}
-    <div class="description-container">
-      <p class="description-line">
-        <span class="highlight">전</span>통과 현대를 아우르는
-      </p>
-      <p class="description-line">
-        <span class="highlight">시</span>대를 대표하는 작품들을
-      </p>
-      <p class="description-line">
-        <span class="highlight">회</span>상하다
-      </p>
+  <div class="title-text1"
+  class:jjajan={showSideBar}>
+      <div class="black-title">몰입전시 팝업 스토어 : 전 시 회 몰입전시 팝업 스토어 : 전 시 회 몰입전시 팝업 스토어 : 전 시 회</div>
+  </div>
+
+  <div class="title-text2"
+  class:jjajan={showSideBar}>
+      <div class="black-title">몰입</div>
+      <div class="white-title">전시 팝업 스토어 : 전 시 회</div>
+  </div>
+
+  <div class="white-side"
+  class:doodoong={showTitle}>
+  <div class="black-line1"
+  class:jjajan={showSideLine}></div>
+    <div class="side-text">
+      <div>조각상 이미지 생성,</div>
+      <div>화가의 화풍으로 배경 생성,</div>
+      <div>나만의 오리지널 티켓 제작</div>
     </div>
-    <div class="start-button-container">
-      <button class="start-button" on:click={goToTheme1}>
-        시작하기
-      </button>
-    </div>
-  {/if}
+  <div class="black-line2"
+  class:jjajan={showSideLine}></div>
+</div>
+
+<div class="start-btn"
+class:jjajan={showStartBtn}
+class:clickable={showStartBtn}
+on:click={goToTheme1}>시작하기 ▶</div>
+
+  
+  <div class="white-line1"
+  class:jjajan={showSideLine}></div>
+  <div class="white-line2"
+  class:jjajan={showSideLine}></div>
+
+  <div>
+    <div class="down-eng2-1"
+    class:jjajan={showSideBar}> 2025.02.15</div>
+    <div class="down-eng1-1"
+    class:jjajan={showSideBar}> 2025.02.15</div>
+    <div class="down-eng2-2"
+    class:jjajan={showSideBar}> ~2025.09.02</div>
+    <div class="down-eng1-2"
+    class:jjajan={showSideBar}> ~2025.09.02</div>
+  </div>
+  <div class="down-date1"
+  class:jjajan={showSideBar}> MAD EXHIBITION's</div>
+  <div class="down-date2"
+  class:jjajan={showSideBar}> 1ST POP UP STORE</div>
+  
 </div>
 </div>
 
@@ -228,7 +303,7 @@
   border: 12px solid #111111;
   transition: all 0.5s ease;
   font-size: 60px;
-  z-index: 5; /* 높은 레이어 설정 */
+  z-index: 9; /* 높은 레이어 설정 */
 }
 
 .logo-container1.clickable {
@@ -257,7 +332,7 @@
 }
 
 .logo-container1.downscale {
-  transform: scale(0.3) translateY(1200px); /* 크기를 줄이고 아래로 이동 */
+  transform: scale(0.3) translateY(1120px); /* 크기를 줄이고 아래로 이동 */
   transition: transform 1s ease; /* 애니메이션 부드럽게 */
 }
 
@@ -278,7 +353,7 @@
   opacity: 0;
   /* border: 28px solid #111111; */
   transition: all 1s ease;
-  z-index: 4; /* 낮은 레이어 설정 */
+  z-index: 8; /* 낮은 레이어 설정 */
 }
 
 .logo-container2.container-small {
@@ -301,7 +376,7 @@
 }
 
 .logo-container2.downscale {
-  transform: scale(0.3) translateY(1200px); /* 크기를 줄이고 아래로 이동 */
+  transform: scale(0.3) translateY(1120px); /* 크기를 줄이고 아래로 이동 */
   transition: transform 1s ease; /* 애니메이션 부드럽게 */
 }
 
@@ -362,18 +437,6 @@
   width: 100%;
 }
 
-.bottom-row {
-  /* gap: 10px;
-  width: 100%; */
-}
-
-.bottom-row:has(.final-text) {
-  gap: 0;
-  padding: 0;
-  align-items: center;
-  justify-content: center;
-}
-
 .logo-container3 {
   position: absolute;
   display: flex;
@@ -386,7 +449,7 @@
   height: 350px;
   opacity: 1;
   transition: all 1s ease;
-  z-index: 3; /* 낮은 레이어 설정 */
+  z-index: 7; /* 낮은 레이어 설정 */
 }
 
 .logo-container3.uplogo3 {
@@ -394,23 +457,33 @@
   transition: transform 1s ease; /* 애니메이션 부드럽게 */
 }
 
-.logo-container3_5 {
+.logo-container3.leftlogo3 {
+  transform: translateY(-350px) translateX(-650px); /* 크기를 줄이고 아래로 이동 */
+  transition: transform 1s ease; /* 애니메이션 부드럽게 */
+}
+
+.logo-container3-5 {
   position: absolute;
   display: flex;
   justify-content: center;
   align-items: center;
-  background: #ff0000;
+  background: #ff000000;
   border-radius: 4px;
   padding: 12px 5px;
   width: 350px;
   height: 350px;
   opacity: 1;
   transition: all 1s ease;
-  z-index: 2; /* 낮은 레이어 설정 */
+  z-index: 6; /* 낮은 레이어 설정 */
 }
 
 .logo-container3-5.uplogo3-5 {
-  transform: translateY(-105px) translateX(-70px); /* 크기를 줄이고 아래로 이동 */
+  transform: translateY(-120px) translateX(-80px); /* 크기를 줄이고 아래로 이동 */
+  transition: transform 1s ease; /* 애니메이션 부드럽게 */
+}
+
+.logo-container3-5.leftlogo3-5 {
+  transform: translateY(-150px) translateX(-825px); /* 크기를 줄이고 아래로 이동 */
   transition: transform 1s ease; /* 애니메이션 부드럽게 */
 }
 
@@ -426,11 +499,16 @@
   height: 350px;
   opacity: 1;
   transition: all 1s ease;
-  z-index: 1;
+  z-index: 5;
 }
 
 .logo-container4.uplogo4 {
   transform: translateY(-120px) translateX(380px); /* 크기를 줄이고 아래로 이동 */
+  transition: transform 1s ease; /* 애니메이션 부드럽게 */
+}
+
+.logo-container4.leftlogo4 {
+  transform: translateY(50px) translateX(-650px); /* 크기를 줄이고 아래로 이동 */
   transition: transform 1s ease; /* 애니메이션 부드럽게 */
 }
 
@@ -501,28 +579,297 @@
   aspect-ratio: 1;
 }
 
-.transform-active .fade-item {
-  opacity: 1; /* 이 상태로 전환될 수 있도록 설정 */
+@keyframes fadeInFromLeft {
+  0% {
+    transform: translateX(0); /* 화면 밖 왼쪽에서 시작 */
+    background-color: transparent;
+    color: transparent;
+  }
+  50% {
+    background-color: black; /* 배경 등장 */
+    color: transparent; /* 글자는 여전히 투명 */
+  }
+  100% {
+    transform: translateX(0); /* 원래 위치 */
+    background-color: black; /* 배경 유지 */
+    color: white; /* 글자 등장 */
+  }
+}
+
+.wide-texts{
+  padding: 0px;
+  padding-right: 480px;
+  padding-bottom: 0px;
+  margin: 0px;
+  z-index: 4;
+  font-weight: 800;
+}
+
+.wide-text1{
+  padding: 0px;
+  padding-bottom: 40px;
+  margin: 0px;
+  margin-left: 140px;
+  line-height: 1;
+  display: flex;
+  justify-content: left;
+  align-items: center;
+  background: #ff000000;
+  color: #ffffff;
+  font-size: 160px;
+  z-index: 4;
+  animation: fadeInFromLeft 1s ease-in-out forwards; /* 애니메이션 추가 */
+  animation-delay: var(0s); /* 각 텍스트에 시간 차이를 두기 위해 변수 사용 */
+
+}
+.wide-text2{
+  line-height: 1;
+  padding: 0px;
+  padding-bottom: 40px;
+  margin: 0px;
+  margin-left: 140px;
+  display: flex;
+  justify-content: left;
+  align-items: center;
+  background: #ff000000;
+  color: #ffffff;
+  font-size: 160px;
+  z-index: 4;
+  animation: fadeInFromLeft 2s ease-in-out forwards; /* 애니메이션 추가 */
+  animation-delay: var(0.5s); /* 각 텍스트에 시간 차이를 두기 위해 변수 사용 */
+
+}
+.wide-text3{
+  line-height: 1;
+  padding: 0px;
+  padding-bottom: 100px;
+  margin: 0px;
+  margin-left: 140px;
+  display: flex;
+  justify-content: left;
+  align-items:first baseline;
+  background: #ff000000;
+  color: #ffffff;
+  font-size: 160px;
+  z-index: 4;
+  animation: fadeInFromLeft 3s ease-in-out forwards; /* 애니메이션 추가 */
+  animation-delay: var(1s); /* 각 텍스트에 시간 차이를 두기 위해 변수 사용 */
+
+}
+
+.white-side{
+  position: absolute; /* 위치를 절대값으로 설정 */
+  right: 0; /* 화면의 오른쪽 끝에 붙이기 */
+  top: 0; /* 화면의 위쪽 끝에 붙이기 */
+  width:23.8%;
+  height:100%;
+  background-color: #ffffff;
+  display: flex;
+  justify-content: left;
+  align-items: center;
+  opacity: 0;
+  z-index: 21;
+}
+
+.white-side.doodoong{
+  opacity: 1;
   transition: opacity 1s ease;
 }
 
-.slide-in {
-  opacity: 0;
-  transform: translateX(-20px);
-  animation: slideIn 3s ease forwards;
-  font-size: 160px;
+.side-text{
+  font-size: 32px;
+  display: flex;
+  flex-direction: column; /* 세로 정렬 */
+  justify-content: flex-start; /* 수직 방향으로 시작 지점 정렬 */
+  align-items: flex-start; /* 가로 방향으로 왼쪽 정렬 */
+  padding: 16px; /* 여백 추가 */
+  margin-bottom: 80px;
 }
 
-.final-text {
-  opacity: 0;
-  animation: fadeIn 1.5s ease forwards;
-  font-size: 160px;
-  width: calc(50% - 5px);
-  margin: 10px;
-  aspect-ratio: auto;
+.side-text > div {
+  font-weight: 800;
+  margin-bottom: 60px;
+}
+
+.title-text1{
   display: flex;
-  align-items: center;
-  justify-content: center;
+  position: absolute; /* 위치를 절대값으로 설정 */
+  left: -180px; /* 화면의 오른쪽 끝에 붙이기 */
+  top: 10px; /* 화면의 위쪽 끝에 붙이기 */
+  width: 100%;
+  z-index: 22;
+  opacity: 0;
+  
+}
+
+.title-text1.jjajan{
+  opacity: 1;
+  transition: opacity 1s ease;
+}
+
+.title-text2{
+  display: flex;
+  position: absolute; /* 위치를 절대값으로 설정 */
+  right: 0; /* 화면의 오른쪽 끝에 붙이기 */
+  top: 10px; /* 화면의 위쪽 끝에 붙이기 */
+  width: 27.8%;
+  z-index: 22;
+  opacity: 0;
+}
+
+.title-text2.jjajan{
+  opacity: 1;
+  transition: opacity 1s ease;
+}
+
+.white-title {
+  font-weight: 800;
+  font-size: 38px;
+  color: #000000;
+}
+.black-title {
+  font-weight: 800;
+  font-size: 38px;
+  color: #ffffff;
+}
+
+.white-line1 {
+  position: absolute; /* z-index를 적용하려면 position 속성이 필요 */
+  top: 7%;
+  width: 100%;
+  height: 2px;
+  background-color: #ffffff;
+  margin: 10px ;
+  z-index: 20;
+  opacity: 0;
+}
+
+.black-line2 {
+  position: absolute; /* z-index를 적용하려면 position 속성이 필요 */
+  top: 80%;
+  width: 100%;
+  height: 2px;
+  background-color: #000000;
+  margin-top: 10px ;
+  z-index: 23;
+  opacity: 0;
+}
+.white-line2 {
+  position: absolute; /* z-index를 적용하려면 position 속성이 필요 */
+  top: 80%;
+  width: 100%;
+  height: 2px;
+  background-color: #ffffff;
+  margin: 10px ;
+  z-index: 20;
+  opacity: 0;
+}
+.black-line1 {
+  position: absolute; /* z-index를 적용하려면 position 속성이 필요 */
+  top: 7%;
+  width: 100%;
+  height: 2px;
+  background-color: #000000;
+  margin-top: 10px ;
+  z-index: 23;
+  opacity: 0;
+}
+
+.down-date1{
+  position: absolute;
+  font-size: 72px;
+  top: 80%;
+  left: 1%;
+  width: 45%;
+  color:aquamarine;
+  font-weight: 900;
+  z-index: 25;
+  letter-spacing: 6px; /* 글자 간격 (px 단위) */
+  opacity: 0;
+}
+.down-date2{
+  position: absolute;
+  font-size: 72px;
+  top: 89%;
+  left: 1%;
+  width: 45%;
+  color: aquamarine;
+  font-weight: 900;
+  z-index: 25;
+  letter-spacing: 6px; /* 글자 간격 (px 단위) */
+  opacity: 0;
+}
+.down-eng1-1{
+  position: absolute;
+  font-size: 72px;
+  top: 80%;
+  left: 43%;
+  width: 45%;
+  color: #ffffff;
+  z-index: 25;
+  letter-spacing: -1px; /* 글자 간격 (px 단위) */
+  opacity: 0;
+}
+.down-eng1-2{
+  position: absolute;
+  font-size: 72px;
+  top: 80%;
+  left: 65.4%;
+  width: 45%;
+  color: #ff55ff;
+  z-index: 25;
+  letter-spacing: -1px; /* 글자 간격 (px 단위) */
+  opacity: 0;
+}
+.down-eng2-1{
+  position: absolute;
+  font-size: 72px;
+  top: 89%;
+  left: 43%;
+  width: 45%;
+  color: #ffffff;
+  z-index: 25;
+  letter-spacing: -1px; /* 글자 간격 (px 단위) */
+  opacity: 0;
+}
+.down-eng2-2{
+  position: absolute;
+  font-size: 72px;
+  top: 89%;
+  left: 65.4%;
+  width: 45%;
+  color: #ff55ff;
+  z-index: 25;
+  letter-spacing: -1px; /* 글자 간격 (px 단위) */
+  opacity: 0;
+}
+
+.start-btn{
+  position: absolute;
+  top: 73%;
+  right: 7%;
+  font-size: 48px;
+  color: #000000;
+  z-index: 30;
+  font-weight: 600;
+  opacity: 0;
+}
+
+.start-btn.clickable {
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.start-btn.clickable:hover {
+  transform: scale(1.02);
+}
+
+.start-btn.jjajan, .white-line1.jjajan, .white-line2.jjajan,
+.black-line1.jjajan, .black-line2.jjajan, .down-date1.jjajan, 
+.down-date2.jjajan, .down-eng1-1.jjajan, .down-eng1-2.jjajan,
+.down-eng2-1.jjajan, .down-eng2-2.jjajan {
+  opacity: 1; /* 이 상태로 전환될 수 있도록 설정 */
+  transition: opacity 1s ease;
 }
 
 @keyframes slideIn {
@@ -545,73 +892,25 @@
   }
 }
 
-.description-container {
+.click-guide0 {
   position: absolute;
-  top: 70%;
+  font-weight: 800;
+  top: 10%;
   left: 50%;
   transform: translateX(-50%);
-  opacity: 0;
-  animation: fadeIn 1.5s ease 1.5s forwards;
-  text-align: center;
-}
-
-.description-line {
-  font-size: 18px;
-  margin: 8px 0;
   color: #111111;
-  line-height: 1.5;
-}
-
-.highlight {
-  font-size: 24px;
-  font-weight: bold;
-  color: #111111;
-}
-
-.start-button-container {
-  position: fixed;
-  bottom: 40px;
-  right: 40px;
+  font-size: 100px;
   opacity: 0;
-  animation: fadeIn 1.5s ease 1s forwards;
+  animation: fadeIn 1s ease 1s forwards;
 }
-
-.start-button {
-  padding: 15px 30px;
-  font-size: 18px;
-  background-color: white;
-  color: black;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  font-weight: bold;
-}
-
-.start-button:hover {
-  background-color: #f0f0f0;
-  transform: translateY(-2px);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-}
-
 .click-guide {
   position: absolute;
+  font-weight: 500;
   top: 75%;
   left: 50%;
   transform: translateX(-50%);
   color: #111111;
   font-size: 30px;
-  opacity: 0;
-  animation: fadeIn 1s ease 1s forwards;
-}
-
-.initial-lefttop {
-  position: absolute;
-  top: 180px;
-  left: 50%;
-  transform: translateX(-50%);
-  color: #111111;
-  font-size: 25px;
   opacity: 0;
   animation: fadeIn 1s ease 1s forwards;
 }

@@ -64,9 +64,9 @@
     });
 </script>
 
-<main>
+<main class="main">
     <div class="title-container">
-        <div class="title">티켓 만들기</div>
+        <div class="title">거의 다 왔어요</div>
     </div>
 
     <div class="content-container">
@@ -175,21 +175,23 @@
 </main>
 
 <style>
+    .main {
+        background-color: #aff7b2;
+    }
+
     .title-container {
         position: relative;
         margin-top: 98px;
         width: 68%;
         margin-left: 16%;
         margin-right: 16%;
-        background-color: var(--primary-color-dark);
         padding: 20px;
         border-radius: 8px;
-        box-shadow: 0 2px 6px rgba(5, 4, 4, 0.1);
         z-index: 1000;
     }
 
     .title {
-        font-size: 30px;
+        font-size: 76px;
         font-weight: bold;
         color: #333;
         text-align: center;
@@ -270,7 +272,7 @@
         left: 0;
         width: 100%;
         height: 50px;
-        background-color: #f0f0f0;
+        background-color: #000000;
         z-index: 9999;
         display: flex;
         align-items: center;
