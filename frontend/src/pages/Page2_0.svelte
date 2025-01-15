@@ -10,7 +10,6 @@
 
     // 슬라이더 애니메이션을 위한 변수
     let isHovered = false;
-    let footerVisible = false;
 
     let resultImage: string | null = null;
 
@@ -23,7 +22,6 @@
     });
 
     onMount(() => {
-        footerVisible = true; // footer 표시 상태를 활성화
         window.scrollTo(0, 0);  // 페이지 로드 시 스크롤을 맨 위로
     });
 
@@ -101,13 +99,11 @@
         </div>
     </section>
 
-    {#if footerVisible}
     <div class="footer">
         <div class="footer-content">
             평소 좋아하던 작가의 그림이 있었나요? 오늘, 내 그림을 그려 작가의 화풍과 합쳐보세요
         </div>
     </div>
-    {/if}
 
 </main>
 

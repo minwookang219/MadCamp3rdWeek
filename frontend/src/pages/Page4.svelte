@@ -9,6 +9,7 @@
     let theme1Image = '';
     let theme2Image = '';
     let visitDate = '';
+    let footerVisible = true;
     let isLoading = true;
     let showTicket = false;
     let isCompleted = false;
@@ -18,7 +19,7 @@
     let BackgroundImage: string | null = null;
     let CharacterImage: string | null = null;
     
-    onMount(() => {
+    onMount(async () => {
         BackgroundImage = get(resultImageStore);
         CharacterImage = get(characterImageStore);
         window.scrollTo(0, 0);
