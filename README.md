@@ -28,7 +28,14 @@
 - [Fastapi](https://fastapi.tiangolo.com/) 0.115.8
 - [Pytorch](https://pytorch.org/) 2.4.1
 
+## Used Models
 
+- [stable-diffusion-3-medium](https://huggingface.co/stabilityai/stable-diffusion-3-medium)
+    - 프롬포트를 통해 이미지를 생성하도록 설계된 text-to-Image 모델.
+- [pastiche](https://github.com/dstein64/pastiche)
+    - Neural Style Transfer를 활용한 Image-to-Image 모델. 
+
+- [사용모델 코드들](https://github.com/Ea3124/MadCamp3rdModel)
 
 # [2] Getting Started
 
@@ -213,7 +220,7 @@ uvicorn main:app --host 0.0.0.0 --port 8000 --reload
 |:---:|:---:|
 | <img src="https://github.com/Ea3124.png" width="120"> | <img src="https://github.com/minwookang219.png" width="120"> |
 |[이승재](https://github.com/Ea3124)|[강민우](https://github.com/minwookang219)|
-|leesj6717@gmail.com| - |
+|leesj6717@gmail.com| minwookang219@gmail.com |
 
  
 <!--Url for Badges-->
